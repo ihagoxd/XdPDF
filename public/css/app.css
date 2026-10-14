@@ -502,6 +502,7 @@ kbd {
   margin-bottom: 4px;
 }
 .zona-soltar .btn-g { margin-top: 6px; }
+.so-movel { display: none !important; }
 .zona-soltar .privacidade { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--texto-3); margin-top: 10px; }
 
 /* bancada: arquivos à esquerda, opções à direita */
@@ -692,7 +693,9 @@ kbd {
   padding: 10px 10px 11px;
   gap: 9px;
   transition: box-shadow var(--transicao), border-color var(--transicao), transform var(--transicao), opacity var(--transicao);
-  touch-action: none;
+  touch-action: manipulation;
+  -webkit-touch-callout: none;
+  user-select: none;
 }
 .cartao-arquivo:hover { box-shadow: var(--sombra-2); }
 .cartao-arquivo.arrastavel { cursor: grab; }
@@ -702,11 +705,14 @@ kbd {
 .cartao-arquivo .miniatura-caixa {
   position: relative;
   height: 172px;
-  display: grid; place-items: center;
+  display: flex; align-items: center; justify-content: center;
+  padding: 10px;
   background: var(--superficie-3);
   border-radius: 9px;
   overflow: hidden;
 }
+.cartao-arquivo .miniatura-caixa > img, .cartao-arquivo .miniatura-caixa > .carregando-folha { max-height: 100%; max-width: 100%; }
+.cartao-arquivo .miniatura-caixa > .carregando-folha { height: 100%; width: auto; }
 .cartao-arquivo .nome { font-size: 13px; font-weight: 600; line-height: 1.3; word-break: break-word; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .cartao-arquivo .meta { font-size: 12px; color: var(--texto-3); display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
 .cartao-arquivo .ordem {
@@ -785,8 +791,6 @@ kbd {
   gap: 16px 14px;
   user-select: none;
 }
-.grade-paginas.p { --tam-pagina: 108px; }
-.grade-paginas.g { --tam-pagina: 210px; }
 
 .cartao-pagina {
   position: relative;
@@ -796,8 +800,10 @@ kbd {
   border: 2px solid transparent;
   background: transparent;
   transition: background var(--transicao), border-color var(--transicao), opacity var(--transicao), transform var(--transicao);
-  touch-action: none;
+  touch-action: manipulation;
+  -webkit-touch-callout: none;
 }
+body.arrastando-item, body.arrastando-item * { cursor: grabbing !important; user-select: none !important; }
 .cartao-pagina:hover { background: var(--superficie-3); }
 .cartao-pagina .folha {
   position: relative;
@@ -1418,6 +1424,7 @@ kbd {
   .zona-soltar .zona-icone { width: 60px; height: 60px; border-radius: 18px; }
   .zona-soltar .btn-g { width: 100%; }
   .zona-soltar .so-desktop { display: none; }
+  .so-movel { display: inline-flex !important; }
   .bancada { grid-template-columns: minmax(0, 1fr); gap: 16px; }
   .painel-opcoes { position: static; max-height: none; }
   .painel-opcoes .painel-rodape { display: none; }
@@ -1437,9 +1444,8 @@ kbd {
   .grade-arquivos { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
   .cartao-arquivo .miniatura-caixa { height: 150px; }
   .adicionar-cartao { min-height: 200px; }
-  .grade-paginas { --tam-pagina: 96px; gap: 10px 8px; }
-  .grade-paginas.g { --tam-pagina: 140px; }
-  .grade-paginas.p { --tam-pagina: 76px; }
+  .grade-paginas { gap: 10px 6px; }
+  .cartao-pagina { padding: 6px 5px 4px; }
   .barra-selecao .entrada { width: 100%; order: 10; }
 
   /* editor */

@@ -4,6 +4,7 @@ import { POR_ID } from '../catalogo.js';
 import { api, avisar, useLoja } from '../loja.js';
 import { IconeArquivo, ir } from './base.js';
 import { abrirVisualizador } from './visualizador.js';
+import { guardarContinuacao } from './ferramenta.js';
 
 export function Recentes() {
   const { recentesVersao, sistema } = useLoja();
@@ -28,7 +29,7 @@ export function Recentes() {
   const continuar = async (r) => {
     try {
       const d = await api.post('/resultados/reaproveitar', { ids: [r.id] });
-      sessionStorage.setItem('xdpdf-continuar', JSON.stringify(d.arquivos.map((a) => a.id)));
+      guardarContinuacao(d.arquivos);
       ir('/');
       avisar('Escolha a ferramenta para continuar com este arquivo.', 'info');
     } catch (e) { avisar(e.message, 'erro'); }

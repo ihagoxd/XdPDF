@@ -26,6 +26,7 @@ function publica(t) {
     texto: t.texto,
     erro: t.erro,
     avisos: t.avisos,
+    dados: t.dados,
     resultados: t.resultados.map(armazem.publicoResultado),
     criadoEm: t.criadoEm,
     terminadoEm: t.terminadoEm,
@@ -49,6 +50,7 @@ function iniciar(ferramenta, executar) {
     texto: 'Aguardando...',
     erro: null,
     avisos: [],
+    dados: null,
     resultados: [],
     criadoEm: Date.now(),
     terminadoEm: null,
@@ -99,6 +101,10 @@ async function rodar(t) {
     },
     aviso(texto) {
       if (!t.avisos.includes(texto)) t.avisos.push(texto);
+    },
+    /** Dados extras para a tela (ex.: as diferenças do Comparar). */
+    dados(valor) {
+      t.dados = valor;
     },
     /** Grava um arquivo de saída desta tarefa. */
     async gravar(nome, bytes, meta = {}) {

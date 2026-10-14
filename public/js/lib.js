@@ -21,10 +21,11 @@ export function plural(n, um, varios) {
 
 export function tamanho(bytes) {
   if (bytes == null || !Number.isFinite(bytes)) return '';
+  if (bytes < 1000) return `${bytes} B`;
   const u = ['B', 'KB', 'MB', 'GB'];
   let i = 0;
   let v = bytes;
-  while (v >= 1024 && i < u.length - 1) { v /= 1024; i += 1; }
+  while (v >= 1000 && i < u.length - 1) { v /= 1024; i += 1; }
   const casas = i === 0 ? 0 : v < 10 ? 1 : 0;
   return `${v.toLocaleString('pt-BR', { maximumFractionDigits: casas, minimumFractionDigits: casas })} ${u[i]}`;
 }
