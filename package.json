@@ -1,0 +1,32 @@
+{
+  "name": "xdpdf",
+  "version": "1.0.0",
+  "private": true,
+  "description": "XdPDF — todas as ferramentas de PDF num app local. Nenhum arquivo sai do computador.",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "app": "node src/server.js --app",
+    "dev": "node --watch src/server.js",
+    "test": "node --test test/",
+    "ocr": "node scripts/baixar-ocr.js",
+    "icones": "node scripts/gerar-icones.js",
+    "postinstall": "node scripts/baixar-ocr.js --silencioso"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@cantoo/pdf-lib": "^2.8.1",
+    "@pdf-lib/fontkit": "^1.1.1",
+    "express": "^4.21.2",
+    "fflate": "^0.8.2",
+    "htm": "^3.1.1",
+    "multer": "^2.0.2",
+    "pdfjs-dist": "4.10.38",
+    "preact": "^10.26.0",
+    "sharp": "^0.34.5",
+    "tesseract.js": "^7.0.0"
+  }
+}
