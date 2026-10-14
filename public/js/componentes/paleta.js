@@ -57,7 +57,7 @@ export function Paleta({ aoFechar }) {
               <span class="texto"><strong>${item.f.titulo}</strong><small>${item.f.descricao}</small></span>
             </button>`
           : html`<button key=${item.a.id} class=${cx('paleta-item', i === ativo && 'ativo')} onMouseMove=${() => setAtivo(i)} onClick=${() => escolher(item)}>
-              <span class="ladrilho p" style="--cor:#64748b"><${Icone} nome=${item.a.icone} tam=${16} /></span>
+              <span class="ic-acao"><${Icone} nome=${item.a.icone} tam=${16} /></span>
               <span class="texto"><strong>${item.a.titulo}</strong><small>${item.a.descricao}</small></span>
             </button>`))}
       </div>

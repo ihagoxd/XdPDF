@@ -36,7 +36,7 @@ export function Recentes() {
 
   return html`<div class="pagina">
     <div class="ferramenta-topo">
-      <span class="ladrilho g" style="--cor:#64748b"><${Icone} nome="relogio" tam=${26} /></span>
+      <span class="ic-acao g"><${Icone} nome="relogio" tam=${24} /></span>
       <div>
         <h1>Arquivos recentes</h1>
         <p>O que você gerou nos últimos 7 dias. Depois disso, a faxina automática apaga.</p>

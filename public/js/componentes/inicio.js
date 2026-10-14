@@ -4,14 +4,6 @@ import { CATEGORIAS, FERRAMENTAS, POR_ID, buscar, indisponivel } from '../catalo
 import { useLoja, api, avisar } from '../loja.js';
 import { ir, Ladrilho, IconeArquivo, ehCampoDeTexto } from './base.js';
 
-function saudacao() {
-  const h = new Date().getHours();
-  if (h < 5) return 'Boa noite';
-  if (h < 12) return 'Bom dia';
-  if (h < 18) return 'Boa tarde';
-  return 'Boa noite';
-}
-
 function CartaoFerramenta({ f, favorita, aoFavoritar, motivo }) {
   const abrir = () => {
     if (motivo) { avisar(motivo, 'aviso', { titulo: f.titulo }); return; }
@@ -86,8 +78,8 @@ export function Inicio({ categoria, aoCategoria }) {
   return html`<div class="pagina">
     <div class="inicio-topo">
       <div>
-        <h1>${saudacao()}! O que vamos fazer?</h1>
-        <p>${FERRAMENTAS.length} ferramentas de PDF que rodam aqui mesmo, sem enviar nada para a internet.</p>
+        <h1>Ferramentas de PDF</h1>
+        <p>Juntar, dividir, comprimir, converter e assinar — aqui no computador, sem mandar nada para a internet.</p>
       </div>
       <label class="campo-busca">
         <${Icone} nome="busca" tam=${17} />

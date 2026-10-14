@@ -28,7 +28,7 @@ export function Configuracoes() {
   const office = cap.office || {};
   return html`<div class="pagina">
     <div class="ferramenta-topo">
-      <span class="ladrilho g" style="--cor:#64748b"><${Icone} nome="config" tam=${26} /></span>
+      <span class="ic-acao g"><${Icone} nome="config" tam=${24} /></span>
       <div><h1>Configurações</h1><p>Onde salvar e o que esta máquina consegue fazer.</p></div>
     </div>
 

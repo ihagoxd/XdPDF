@@ -1,5 +1,6 @@
 import { html, useEffect, useRef, useState, cx, corDaExtensao, extensao } from '../lib.js';
 import { Icone } from '../icones.js';
+import { IconeFerramenta } from '../icones-ferramentas.js';
 import { useLoja, fecharAviso } from '../loja.js';
 
 /* ---------------- rotas (#/...) ---------------- */
@@ -61,10 +62,9 @@ export function Dialogo({ titulo, aoFechar, children, rodape, classe = '', icone
 
 /* ---------------- pequenos componentes ---------------- */
 
+/** Ícone desenhado da ferramenta. tam: '' (40px), 'g' (52px), 'p' (30px). */
 export function Ladrilho({ ferramenta, tam = '' }) {
-  return html`<span class=${cx('ladrilho', tam)} style=${`--cor:${ferramenta.cor}`}>
-    <${Icone} nome=${ferramenta.icone} tam=${tam === 'g' ? 26 : tam === 'p' ? 16 : 22} />
-  </span>`;
+  return html`<${IconeFerramenta} id=${ferramenta.id} cor=${ferramenta.cor} tam=${tam === 'g' ? 52 : tam === 'p' ? 30 : 40} />`;
 }
 
 export function IconeArquivo({ nome, p }) {

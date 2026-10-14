@@ -3,12 +3,12 @@
    ============================================================ */
 
 export const CATEGORIAS = [
-  { id: 'organizar', titulo: 'Organizar', cor: '#ef4444' },
-  { id: 'otimizar', titulo: 'Otimizar', cor: '#16a34a' },
-  { id: 'para-pdf', titulo: 'Converter para PDF', cor: '#d69e00' },
-  { id: 'de-pdf', titulo: 'Converter de PDF', cor: '#2563eb' },
-  { id: 'editar', titulo: 'Editar', cor: '#7c3aed' },
-  { id: 'seguranca', titulo: 'Segurança', cor: '#0f766e' },
+  { id: 'organizar', titulo: 'Organizar', cor: '#e5484d' },
+  { id: 'otimizar', titulo: 'Otimizar', cor: '#30a46c' },
+  { id: 'para-pdf', titulo: 'Converter para PDF', cor: '#d97706' },
+  { id: 'de-pdf', titulo: 'Converter de PDF', cor: '#2b579a' },
+  { id: 'editar', titulo: 'Editar', cor: '#6e56cf' },
+  { id: 'seguranca', titulo: 'Segurança', cor: '#3a5bc7' },
 ];
 
 const PDF = ['pdf'];
@@ -28,7 +28,7 @@ const POSICOES_TODAS = ['sup-esq', 'sup-centro', 'sup-dir', 'meio-esq', 'centro'
 export const FERRAMENTAS = [
   /* ---------------- organizar ---------------- */
   {
-    id: 'juntar', titulo: 'Juntar PDF', icone: 'juntar', cor: '#e5322d', categoria: 'organizar',
+    id: 'juntar', titulo: 'Juntar PDF', icone: 'juntar', cor: '#e5484d', categoria: 'organizar',
     descricao: 'Combine vários PDFs, imagens e documentos num só, na ordem que quiser.',
     aceita: PDF_E_OUTROS, extensoes: EXT_TUDO, min: 2, area: 'arquivos', ordenavel: true,
     acao: 'Juntar PDF', palavras: 'unir mesclar combinar merge juntada anexar',
@@ -39,7 +39,7 @@ export const FERRAMENTAS = [
     ],
   },
   {
-    id: 'dividir', titulo: 'Dividir PDF', icone: 'dividir', cor: '#f97316', categoria: 'organizar',
+    id: 'dividir', titulo: 'Dividir PDF', icone: 'dividir', cor: '#f76b15', categoria: 'organizar',
     descricao: 'Separe por intervalos, a cada N páginas, página por página ou por tamanho máximo.',
     aceita: PDF, extensoes: EXT_PDF, area: 'arquivos', acao: 'Dividir PDF', palavras: 'separar cortar split partes tamanho pje',
     opcoes: [
@@ -59,14 +59,14 @@ export const FERRAMENTAS = [
     ],
   },
   {
-    id: 'remover', titulo: 'Remover páginas', icone: 'remover', cor: '#e11d48', categoria: 'organizar',
+    id: 'remover', titulo: 'Remover páginas', icone: 'remover', cor: '#e93d82', categoria: 'organizar',
     descricao: 'Clique nas páginas que não servem e gere o PDF sem elas.',
     aceita: PDF, extensoes: EXT_PDF, area: 'paginas', modoPaginas: 'remover', acao: 'Remover páginas',
     palavras: 'apagar excluir tirar deletar paginas',
     opcoes: [],
   },
   {
-    id: 'extrair', titulo: 'Extrair páginas', icone: 'extrair', cor: '#fb7a1e', categoria: 'organizar',
+    id: 'extrair', titulo: 'Extrair páginas', icone: 'extrair', cor: '#d6409f', categoria: 'organizar',
     descricao: 'Escolha as páginas que interessam e leve só elas para um PDF novo.',
     aceita: PDF, extensoes: EXT_PDF, area: 'paginas', modoPaginas: 'selecionar', acao: 'Extrair páginas',
     palavras: 'selecionar copiar paginas separar',
@@ -75,7 +75,7 @@ export const FERRAMENTAS = [
     ],
   },
   {
-    id: 'organizar', titulo: 'Organizar PDF', icone: 'organizar', cor: '#f43f5e', categoria: 'organizar',
+    id: 'organizar', titulo: 'Organizar PDF', icone: 'organizar', cor: '#e54d2e', categoria: 'organizar',
     descricao: 'Arraste para reordenar, gire, apague e insira páginas em branco. Dá para misturar arquivos.',
     aceita: PDF_E_OUTROS, extensoes: EXT_TUDO, area: 'paginas', modoPaginas: 'organizar', acao: 'Salvar PDF organizado',
     palavras: 'ordenar reordenar mover arrastar sequencia',
@@ -84,7 +84,7 @@ export const FERRAMENTAS = [
     ],
   },
   {
-    id: 'girar', titulo: 'Girar PDF', icone: 'girar', cor: '#ea580c', categoria: 'organizar',
+    id: 'girar', titulo: 'Girar PDF', icone: 'girar', cor: '#8e4ec6', categoria: 'organizar',
     descricao: 'Endireite páginas deitadas ou de cabeça para baixo — todas de uma vez ou uma a uma.',
     aceita: PDF, extensoes: EXT_PDF, area: 'paginas', modoPaginas: 'girar', acao: 'Salvar PDF girado',
     palavras: 'rotacionar virar rotacao deitada',
@@ -93,7 +93,7 @@ export const FERRAMENTAS = [
 
   /* ---------------- otimizar ---------------- */
   {
-    id: 'comprimir', titulo: 'Comprimir PDF', icone: 'comprimir', cor: '#16a34a', categoria: 'otimizar',
+    id: 'comprimir', titulo: 'Comprimir PDF', icone: 'comprimir', cor: '#30a46c', categoria: 'otimizar',
     descricao: 'Diminua o tamanho mantendo o texto selecionável. Ideal para anexar e protocolar.',
     aceita: PDF, extensoes: EXT_PDF, area: 'arquivos', acao: 'Comprimir PDF', palavras: 'reduzir diminuir tamanho otimizar leve mb',
     opcoes: [
@@ -109,7 +109,7 @@ export const FERRAMENTAS = [
     ],
   },
   {
-    id: 'ocr', titulo: 'OCR — PDF pesquisável', icone: 'ocr', cor: '#059669', categoria: 'otimizar',
+    id: 'ocr', titulo: 'OCR — PDF pesquisável', icone: 'ocr', cor: '#12a594', categoria: 'otimizar',
     descricao: 'Reconhece o texto de documentos digitalizados. Depois dá para buscar e copiar.',
     aceita: PDF_E_OUTROS, extensoes: [EXT_PDF, EXT_IMAGEM].join(','), area: 'arquivos', acao: 'Reconhecer texto',
     palavras: 'digitalizado escaneado reconhecimento texto pesquisavel scanner',
@@ -123,7 +123,7 @@ export const FERRAMENTAS = [
     ],
   },
   {
-    id: 'reparar', titulo: 'Reparar PDF', icone: 'reparar', cor: '#0d9488', categoria: 'otimizar',
+    id: 'reparar', titulo: 'Reparar PDF', icone: 'reparar', cor: '#29a383', categoria: 'otimizar',
     descricao: 'Tenta recuperar PDFs danificados que não abrem ou abrem com erro.',
     aceita: PDF, extensoes: EXT_PDF, area: 'arquivos', acao: 'Reparar PDF', aceitaComErro: true,
     palavras: 'corrompido danificado consertar recuperar erro',
@@ -132,7 +132,7 @@ export const FERRAMENTAS = [
 
   /* ---------------- converter para PDF ---------------- */
   {
-    id: 'imagem-pdf', titulo: 'Imagem para PDF', icone: 'imagem', cor: '#d69e00', categoria: 'para-pdf',
+    id: 'imagem-pdf', titulo: 'Imagem para PDF', icone: 'imagem', cor: '#d97706', categoria: 'para-pdf',
     descricao: 'JPG, PNG, TIFF e outras imagens viram PDF. Fotos de celular já saem na posição certa.',
     aceita: ['imagem'], extensoes: EXT_IMAGEM, area: 'arquivos', ordenavel: true, acao: 'Converter para PDF',
     palavras: 'jpg png foto fotografia tiff scanner celular converter',
@@ -170,7 +170,7 @@ export const FERRAMENTAS = [
     opcoes: [{ chave: 'juntar', tipo: 'alternar', rotulo: 'Juntar tudo num PDF só', padrao: false }],
   },
   {
-    id: 'excel-pdf', titulo: 'Excel para PDF', icone: 'excel', cor: '#1d6f42', categoria: 'para-pdf',
+    id: 'excel-pdf', titulo: 'Excel para PDF', icone: 'excel', cor: '#217346', categoria: 'para-pdf',
     descricao: 'Planilhas viram PDF respeitando as áreas de impressão.',
     aceita: ['office'], extensoes: EXT_EXCEL, area: 'arquivos', acao: 'Converter para PDF', servidor: 'office-pdf',
     palavras: 'xls xlsx planilha csv converter',
@@ -186,7 +186,7 @@ export const FERRAMENTAS = [
     opcoes: [{ chave: 'juntar', tipo: 'alternar', rotulo: 'Juntar tudo num PDF só', padrao: false }],
   },
   {
-    id: 'html-pdf', titulo: 'Site para PDF', icone: 'html', cor: '#e34f26', categoria: 'para-pdf',
+    id: 'html-pdf', titulo: 'Site para PDF', icone: 'html', cor: '#0588f0', categoria: 'para-pdf',
     descricao: 'Salve uma página da internet (ou um HTML) como PDF, do jeito que aparece.',
     aceita: [], area: 'site', acao: 'Gerar PDF', semArquivos: true,
     palavras: 'html url pagina internet web link navegador',
@@ -216,7 +216,7 @@ export const FERRAMENTAS = [
 
   /* ---------------- converter de PDF ---------------- */
   {
-    id: 'pdf-jpg', titulo: 'PDF para JPG', icone: 'jpg', cor: '#d69e00', categoria: 'de-pdf',
+    id: 'pdf-jpg', titulo: 'PDF para JPG', icone: 'jpg', cor: '#d97706', categoria: 'de-pdf',
     descricao: 'Cada página vira uma imagem — ou extraia só as fotos que estão dentro do PDF.',
     aceita: PDF, extensoes: EXT_PDF, area: 'arquivos', acao: 'Converter para imagem',
     palavras: 'imagem png jpeg foto extrair imagens converter',
@@ -256,7 +256,7 @@ export const FERRAMENTAS = [
     ],
   },
   {
-    id: 'pdf-excel', titulo: 'PDF para Excel', icone: 'excel', cor: '#1d6f42', categoria: 'de-pdf',
+    id: 'pdf-excel', titulo: 'PDF para Excel', icone: 'excel', cor: '#217346', categoria: 'de-pdf',
     descricao: 'Tabelas do PDF viram planilha, com colunas, números e datas de verdade.',
     aceita: PDF, extensoes: EXT_PDF, area: 'arquivos', acao: 'Converter para Excel',
     palavras: 'xlsx planilha tabela extrato converter',
@@ -276,7 +276,7 @@ export const FERRAMENTAS = [
     opcoes: [],
   },
   {
-    id: 'pdf-texto', titulo: 'PDF para texto', icone: 'textoArquivo', cor: '#64748b', categoria: 'de-pdf',
+    id: 'pdf-texto', titulo: 'PDF para texto', icone: 'textoArquivo', cor: '#60646c', categoria: 'de-pdf',
     descricao: 'Extrai todo o texto do documento num arquivo .txt.',
     aceita: PDF, extensoes: EXT_PDF, area: 'arquivos', acao: 'Extrair texto',
     palavras: 'txt extrair copiar texto',
@@ -285,7 +285,7 @@ export const FERRAMENTAS = [
     ],
   },
   {
-    id: 'pdf-pdfa', titulo: 'PDF para PDF/A', icone: 'pdfa', cor: '#0284c7', categoria: 'de-pdf',
+    id: 'pdf-pdfa', titulo: 'PDF para PDF/A', icone: 'pdfa', cor: '#0797b9', categoria: 'de-pdf',
     descricao: 'Formato de arquivamento de longo prazo, exigido em alguns órgãos públicos.',
     aceita: PDF, extensoes: EXT_PDF, area: 'arquivos', acao: 'Converter para PDF/A',
     palavras: 'pdfa arquivamento iso conformidade',
@@ -299,21 +299,21 @@ export const FERRAMENTAS = [
 
   /* ---------------- editar ---------------- */
   {
-    id: 'editar', titulo: 'Editar PDF', icone: 'editar', cor: '#7c3aed', categoria: 'editar',
+    id: 'editar', titulo: 'Editar PDF', icone: 'editar', cor: '#6e56cf', categoria: 'editar',
     descricao: 'Escreva texto, insira imagens, desenhe caixas e cubra trechos com branco.',
     aceita: PDF, extensoes: EXT_PDF, max: 1, area: 'editor', modoEditor: 'editar', acao: 'Salvar alterações',
     palavras: 'escrever texto adicionar imagem preencher anotar',
     opcoes: [],
   },
   {
-    id: 'assinar', titulo: 'Assinar PDF', icone: 'assinar', cor: '#2563eb', categoria: 'editar',
+    id: 'assinar', titulo: 'Assinar PDF', icone: 'assinar', cor: '#3e63dd', categoria: 'editar',
     descricao: 'Desenhe, digite ou use uma imagem da sua assinatura e coloque onde quiser.',
     aceita: PDF, extensoes: EXT_PDF, max: 1, area: 'editor', modoEditor: 'assinar', acao: 'Assinar',
     palavras: 'assinatura rubrica visto firmar',
     opcoes: [],
   },
   {
-    id: 'numerar', titulo: 'Numerar páginas', icone: 'numerar', cor: '#8b5cf6', categoria: 'editar',
+    id: 'numerar', titulo: 'Numerar páginas', icone: 'numerar', cor: '#8e4ec6', categoria: 'editar',
     descricao: 'Número em cada página, no formato e lugar que quiser — inclusive "Fls."',
     aceita: PDF, extensoes: EXT_PDF, area: 'arquivos', acao: 'Numerar páginas',
     palavras: 'numeracao paginar folhas fls contagem',
@@ -345,7 +345,7 @@ export const FERRAMENTAS = [
     ],
   },
   {
-    id: 'marca-dagua', titulo: "Marca d'água", icone: 'marcaDagua', cor: '#a855f7', categoria: 'editar',
+    id: 'marca-dagua', titulo: "Marca d'água", icone: 'marcaDagua', cor: '#ab4aba', categoria: 'editar',
     descricao: 'Carimbe CÓPIA, CONFIDENCIAL, seu logo ou qualquer texto em todas as páginas.',
     aceita: PDF, extensoes: EXT_PDF, area: 'arquivos', acao: "Aplicar marca d'água",
     palavras: 'carimbo copia confidencial logotipo marca agua',
@@ -372,21 +372,21 @@ export const FERRAMENTAS = [
     ],
   },
   {
-    id: 'recortar', titulo: 'Recortar PDF', icone: 'recortar', cor: '#6d28d9', categoria: 'editar',
+    id: 'recortar', titulo: 'Recortar PDF', icone: 'recortar', cor: '#5b5bd6', categoria: 'editar',
     descricao: 'Desenhe a área que deve ficar e corte as margens de uma ou de todas as páginas.',
     aceita: PDF, extensoes: EXT_PDF, max: 1, area: 'editor', modoEditor: 'recortar', acao: 'Recortar',
     palavras: 'cortar margem aparar area',
     opcoes: [],
   },
   {
-    id: 'metadados', titulo: 'Propriedades do PDF', icone: 'metadados', cor: '#6366f1', categoria: 'editar',
+    id: 'metadados', titulo: 'Propriedades do PDF', icone: 'metadados', cor: '#7c66dc', categoria: 'editar',
     descricao: 'Veja e altere título, autor e palavras-chave — ou apague todos os metadados.',
     aceita: PDF, extensoes: EXT_PDF, max: 1, area: 'metadados', acao: 'Salvar propriedades',
     palavras: 'metadados titulo autor propriedades informacoes privacidade',
     opcoes: [],
   },
   {
-    id: 'achatar', titulo: 'Achatar PDF', icone: 'achatar', cor: '#4f46e5', categoria: 'editar',
+    id: 'achatar', titulo: 'Achatar PDF', icone: 'achatar', cor: '#5151cd', categoria: 'editar',
     descricao: 'Fixa formulários preenchidos e anotações para que ninguém altere depois.',
     aceita: PDF, extensoes: EXT_PDF, area: 'arquivos', acao: 'Achatar PDF',
     palavras: 'formulario campos flatten fixar travar anotacoes',
@@ -395,7 +395,7 @@ export const FERRAMENTAS = [
 
   /* ---------------- segurança ---------------- */
   {
-    id: 'proteger', titulo: 'Proteger PDF', icone: 'proteger', cor: '#1e3a8a', categoria: 'seguranca',
+    id: 'proteger', titulo: 'Proteger PDF', icone: 'proteger', cor: '#3a5bc7', categoria: 'seguranca',
     descricao: 'Coloque senha (AES-256) e escolha o que pode ser feito com o arquivo.',
     aceita: PDF, extensoes: EXT_PDF, area: 'arquivos', acao: 'Proteger PDF',
     palavras: 'senha criptografar bloquear segredo seguranca',
@@ -408,21 +408,21 @@ export const FERRAMENTAS = [
     ],
   },
   {
-    id: 'desbloquear', titulo: 'Desbloquear PDF', icone: 'desbloquear', cor: '#3b82f6', categoria: 'seguranca',
+    id: 'desbloquear', titulo: 'Desbloquear PDF', icone: 'desbloquear', cor: '#0588f0', categoria: 'seguranca',
     descricao: 'Tire a senha (sabendo qual é) ou as travas de impressão e cópia.',
     aceita: PDF, extensoes: EXT_PDF, area: 'arquivos', acao: 'Desbloquear PDF', aceitaSenha: true,
     palavras: 'senha remover tirar liberar desproteger restricao imprimir',
     opcoes: [],
   },
   {
-    id: 'tarjar', titulo: 'Tarjar PDF', icone: 'tarjar', cor: '#111827', categoria: 'seguranca',
+    id: 'tarjar', titulo: 'Tarjar PDF', icone: 'tarjar', cor: '#3f3f46', categoria: 'seguranca',
     descricao: 'Cubra de preto CPFs, nomes e dados sensíveis — e eles somem de verdade (LGPD).',
     aceita: PDF, extensoes: EXT_PDF, max: 1, area: 'editor', modoEditor: 'tarjar', acao: 'Aplicar tarjas',
     palavras: 'ocultar censurar esconder lgpd cpf sigilo redigir redact anonimizar',
     opcoes: [],
   },
   {
-    id: 'comparar', titulo: 'Comparar PDF', icone: 'comparar', cor: '#0891b2', categoria: 'seguranca',
+    id: 'comparar', titulo: 'Comparar PDF', icone: 'comparar', cor: '#0797b9', categoria: 'seguranca',
     descricao: 'Veja lado a lado o que mudou entre duas versões de um documento.',
     aceita: PDF, extensoes: EXT_PDF, min: 2, max: 2, area: 'comparar', acao: 'Comparar',
     palavras: 'diferenca versao mudancas contrato revisar',

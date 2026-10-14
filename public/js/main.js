@@ -8,6 +8,7 @@ import { Ferramenta } from './componentes/ferramenta.js';
 import { Recentes } from './componentes/recentes.js';
 import { Configuracoes } from './componentes/configuracoes.js';
 import { POR_ID } from './catalogo.js';
+import { Icone } from './icones.js';
 
 function App() {
   const rota = useRota();
@@ -39,17 +40,49 @@ function App() {
     tela = html`<${Inicio} categoria=${categoria} aoCategoria=${setCategoria} />`;
   }
 
-  return html`<div class="app">
+  const emFerramenta = rota.tela === 'f';
+
+  return html`<div class=${emFerramenta ? 'app em-ferramenta' : 'app'}>
     <${Lateral} rota=${rota} aoBuscar=${() => setPaleta(true)} categoria=${categoria} aoCategoria=${setCategoria} />
+    <${TopoMovel} rota=${rota} aoBuscar=${() => setPaleta(true)} />
     <main class="principal" id="principal">
       ${sistema && !conectado && html`<div class="pagina" style="padding-bottom:0">
         <div class="alerta aviso">Sem conexão com o XdPDF. Se você fechou a janela preta ou o programa, abra de novo.</div>
       </div>`}
       ${tela}
     </main>
+    <${AbasMovel} rota=${rota} aoBuscar=${() => setPaleta(true)} aoInicio=${() => setCategoria(null)} />
     ${paleta && html`<${Paleta} aoFechar=${() => setPaleta(false)} />`}
     <${Toasts} />
   </div>`;
+}
+
+/* ---------------- celular: barra de cima e abas de baixo ---------------- */
+
+function TopoMovel({ rota, aoBuscar }) {
+  const f = rota.tela === 'f' && POR_ID[rota.param];
+  return html`<header class="topo-movel">
+    ${f
+      ? html`<button class="btn-icone" onClick=${() => (history.length > 1 ? history.back() : ir('/'))} aria-label="Voltar"><${Icone} nome="voltar" tam=${21} /></button>
+        <span class="topo-movel-titulo">${f.titulo}</span>`
+      : html`<a class="marca" href="#/" aria-label="XdPDF">
+          <img class="marca-logo" src="/icones/xdpdf.svg" alt="" />
+          <span class="marca-nome"><b>Xd</b>PDF</span>
+        </a>`}
+    <button class="btn-icone" onClick=${aoBuscar} aria-label="Procurar ferramenta"><${Icone} nome="busca" tam=${20} /></button>
+  </header>`;
+}
+
+function AbasMovel({ rota, aoBuscar, aoInicio }) {
+  const aba = (id, rotulo, icone, acao, ativo) => html`<button class=${ativo ? 'aba ativo' : 'aba'} onClick=${acao} aria-current=${ativo ? 'page' : undefined}>
+    <${Icone} nome=${icone} tam=${22} /><span>${rotulo}</span>
+  </button>`;
+  return html`<nav class="abas-movel" aria-label="Navegação">
+    ${aba('inicio', 'Ferramentas', 'organizar', () => { aoInicio(); ir('/'); }, rota.tela === 'inicio')}
+    ${aba('buscar', 'Procurar', 'busca', aoBuscar, false)}
+    ${aba('recentes', 'Recentes', 'relogio', () => ir('/recentes'), rota.tela === 'recentes')}
+    ${aba('config', 'Ajustes', 'config', () => ir('/config'), rota.tela === 'config')}
+  </nav>`;
 }
 
 async function iniciar() {
