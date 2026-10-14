@@ -4,7 +4,7 @@
  * Organizar: juntar, dividir, remover, extrair, reordenar e girar páginas.
  */
 
-const { PDFDocument, degrees } = require('@cantoo/pdf-lib');
+const { degrees } = require('@cantoo/pdf-lib');
 const pdf = require('../nucleo/pdf');
 const paginas = require('../nucleo/paginas');
 const { semExtensao, nomeSeguro, booleano, limitar, ErroUsuario } = require('../nucleo/util');
@@ -42,7 +42,7 @@ async function juntar({ arquivos, opcoes }, ctx) {
   const comMarcadores = booleano(opcoes.marcadores, true);
   const frenteVerso = booleano(opcoes.frenteVerso, false);
 
-  const destino = await PDFDocument.create();
+  const destino = await pdf.novo();
   const marcadores = [];
 
   for (let i = 0; i < arquivos.length; i += 1) {
@@ -79,7 +79,7 @@ function rotuloPaginas(lista) {
 }
 
 async function gravarTrecho(ctx, origem, base, lista) {
-  const novo = await PDFDocument.create();
+  const novo = await pdf.novo();
   await copiar(novo, origem, lista.map((n) => n - 1));
   return ctx.gravar(`${base} - ${rotuloPaginas(lista)}.pdf`, await pdf.salvar(novo), { paginas: lista.length });
 }
@@ -91,7 +91,7 @@ async function dividirPorTamanho(ctx, origem, base, limite) {
   let parte = 0;
 
   const tamanhoDe = async (de, ate) => {
-    const novo = await PDFDocument.create();
+    const novo = await pdf.novo();
     await copiar(novo, origem, Array.from({ length: ate - de + 1 }, (_, k) => de - 1 + k));
     const bytes = await pdf.salvar(novo);
     return bytes;
@@ -166,7 +166,7 @@ async function dividir({ arquivos, opcoes }, ctx) {
       if (!grupos.length) throw new ErroUsuario('Informe os intervalos, por exemplo: 1-3, 4-8, 9.');
       if (booleano(opcoes.juntarIntervalos, false)) {
         const lista = grupos.flat();
-        const novo = await PDFDocument.create();
+        const novo = await pdf.novo();
         await copiar(novo, origem, lista.map((x) => x - 1));
         await ctx.gravar(`${base} - ${rotuloPaginas(lista)}.pdf`, await pdf.salvar(novo), { paginas: lista.length });
       } else {
@@ -249,7 +249,7 @@ async function organizar({ arquivos, opcoes }, ctx) {
   if (!lista.length) throw new ErroUsuario('Nenhuma página ficou no documento.');
   const porId = new Map(arquivos.map((a) => [a.id, a]));
   const abrir = abridor();
-  const destino = await PDFDocument.create();
+  const destino = await pdf.novo();
   let ultimoTamanho = A4;
 
   for (let i = 0; i < lista.length; i += 1) {

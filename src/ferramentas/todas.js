@@ -5,3 +5,8 @@
  */
 
 require('./index');
+require('./editar');
+require('./seguranca');
+require('./otimizar');
+require('./converter');
+require('./comparar');

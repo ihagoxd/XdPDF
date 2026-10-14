@@ -48,6 +48,9 @@ router.get('/sistema', seguro(async (req, res) => {
 
 router.get('/eventos', (req, res) => eventos.conectar(req, res));
 
+// HTML colado no "Site para PDF": o navegador invisível busca aqui, uma vez só.
+router.get('/render/:token', (req, res) => require('../motores/navegador-pdf').servirHtmlColado(req, res));
+
 router.get('/config', (req, res) => res.json({ ok: true, config: configuracao.ler() }));
 
 router.put('/config', (req, res) => {

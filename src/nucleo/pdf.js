@@ -61,6 +61,7 @@ async function carregar(bytes, { senha } = {}) {
 
   try {
     const doc = await PDFDocument.load(dados, OPCOES_LEITURA);
+    coletarLixo(doc);
     return { doc, criptografado: false };
   } catch (err) {
     if (!ehErroDeSenha(err)) {
@@ -77,6 +78,8 @@ async function carregar(bytes, { senha } = {}) {
     try {
       const doc = await PDFDocument.load(dados, { ...OPCOES_LEITURA, password: tentativa });
       tirarCriptografia(doc);
+      // sai a tabela antiga (que carrega o /Encrypt), o dicionário de senha e o lixo
+      coletarLixo(doc);
       return { doc, criptografado: true, precisouSenha: tentativa !== '' };
     } catch (err) {
       if (!ehErroDeSenha(err)) {
@@ -102,6 +105,57 @@ async function abrir(caminho) {
 
 async function salvar(doc, { objetosCompactos = true } = {}) {
   return Buffer.from(await doc.save({ useObjectStreams: objetosCompactos, addDefaultPage: false }));
+}
+
+/** Documento novo, sem o pdf-lib se anunciar como autor. */
+async function novo() {
+  const doc = await PDFDocument.create({ updateMetadata: false });
+  doc.setProducer('XdPDF');
+  doc.setCreator('XdPDF');
+  const agora = new Date();
+  doc.setCreationDate(agora);
+  doc.setModificationDate(agora);
+  return doc;
+}
+
+const isoladas = new WeakSet();
+
+/**
+ * Antes de desenhar numa página existente: cerca o conteúdo original com
+ * q ... Q. Muitos PDFs deixam a matriz de transformação alterada no fim do
+ * conteúdo; sem isso, número de página, marca d'água e assinatura sairiam
+ * deslocados ou na escala errada.
+ */
+function isolarConteudo(pagina) {
+  if (isoladas.has(pagina)) return;
+  isoladas.add(pagina);
+  // normalize() do pdf-lib (autoNormalizeCTM) já envolve o conteúdo em q/Q
+  // e transforma /Contents numa lista.
+  pagina.node.normalize();
+}
+
+/**
+ * Desenha "por baixo" do conteúdo original: o que for desenhado em `fn`
+ * vai para o começo da lista de conteúdos da página.
+ */
+function desenharPorBaixo(pagina, fn) {
+  isolarConteudo(pagina);
+  const antes = pagina.node.Contents();
+  const tamanhoAntes = antes instanceof PDFArray ? antes.size() : 0;
+  fn();
+  const lista = pagina.node.Contents();
+  if (!(lista instanceof PDFArray) || lista.size() <= tamanhoAntes) return;
+  const ref = lista.get(lista.size() - 1);
+  lista.remove(lista.size() - 1);
+  lista.insert(0, ref);
+}
+
+/** "#rrggbb" -> cor do pdf-lib */
+function cor(hex, padrao = '#000000') {
+  const { rgb } = require('@cantoo/pdf-lib');
+  const m = /^#?([0-9a-f]{6})$/i.exec(String(hex || '')) || /^#?([0-9a-f]{6})$/i.exec(padrao);
+  const n = parseInt(m[1], 16);
+  return rgb(((n >> 16) & 255) / 255, ((n >> 8) & 255) / 255, (n & 255) / 255);
 }
 
 /* ============================================================
@@ -171,6 +225,11 @@ function caixaNormalizada(v, caixa) {
 
 /* ============================================================
    LIMPEZA: remove objetos que nada mais referencia
+
+   Roda logo ao abrir. O pdf-lib mantém as tabelas de referência antigas
+   (/Type /XRef) e objetos que não conseguiu ler como objetos comuns e os
+   regrava no arquivo novo; ao reabrir, essas tabelas velhas "voltam a valer"
+   e trazem de volta /Encrypt, /Root e /Info antigos.
    ============================================================ */
 
 function coletarLixo(doc) {
@@ -263,6 +322,10 @@ module.exports = {
   carregar,
   abrir,
   salvar,
+  novo,
+  isolarConteudo,
+  desenharPorBaixo,
+  cor,
   tirarCriptografia,
   inicioDoPdf,
   visao,

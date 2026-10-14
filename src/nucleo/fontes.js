@@ -11,8 +11,10 @@
 
 const fs = require('fs');
 const path = require('path');
-const { StandardFonts } = require('@cantoo/pdf-lib');
-const fontkit = require('@pdf-lib/fontkit');
+const { PDFDocument, StandardFonts } = require('@cantoo/pdf-lib');
+const fontkitModulo = require('@cantoo/fontkit');
+
+const fontkit = fontkitModulo.default || fontkitModulo;
 
 const WIN = process.env.WINDIR || 'C:\\Windows';
 
@@ -87,6 +89,30 @@ function lerFonteDoSistema(estilo) {
 }
 
 /**
+ * Algumas fontes não sobrevivem ao recorte (subset) do fontkit. Testa uma vez
+ * por estilo, num documento descartável, antes de usar de verdade.
+ */
+const fonteTestada = new Map();
+
+function fonteFunciona(estilo, bytes) {
+  if (!fonteTestada.has(estilo)) {
+    fonteTestada.set(estilo, (async () => {
+      try {
+        const teste = await PDFDocument.create();
+        teste.registerFontkit(fontkit);
+        const f = await teste.embedFont(bytes, { subset: true });
+        teste.addPage().drawText('Ação Ω €', { font: f, size: 10 });
+        await teste.save();
+        return true;
+      } catch (_) {
+        return false;
+      }
+    })());
+  }
+  return fonteTestada.get(estilo);
+}
+
+/**
  * Embute a fonte adequada para os textos que vão ser escritos.
  * @param {import('@cantoo/pdf-lib').PDFDocument} doc
  * @param {string} familia 'sans' | 'serif' | 'mono'
@@ -100,7 +126,7 @@ async function fonteParaTextos(doc, familia = 'sans', negrito = false, textos = 
 
   if (precisaUnicode) {
     const bytes = lerFonteDoSistema(estilo);
-    if (bytes) {
+    if (bytes && await fonteFunciona(estilo, bytes)) {
       doc.registerFontkit(fontkit);
       const fonte = await doc.embedFont(bytes, { subset: true });
       const disponiveis = new Set(fonte.getCharacterSet());
