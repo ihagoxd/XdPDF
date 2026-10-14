@@ -47,7 +47,7 @@ function App() {
     <${TopoMovel} rota=${rota} aoBuscar=${() => setPaleta(true)} />
     <main class="principal" id="principal">
       ${sistema && !conectado && html`<div class="pagina" style="padding-bottom:0">
-        <div class="alerta aviso">Sem conexão com o XdPDF. Se você fechou a janela preta ou o programa, abra de novo.</div>
+        <div class="alerta aviso">Sem conexão com o XdPDF. Tentando de novo... Se o programa foi fechado, abra o XdPDF outra vez.</div>
       </div>`}
       ${tela}
     </main>

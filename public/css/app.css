@@ -1075,7 +1075,12 @@ body.arrastando-item, body.arrastando-item * { cursor: grabbing !important; user
 .dialogo-cab { display: flex; align-items: center; gap: 12px; padding: 16px 18px; border-bottom: 1px solid var(--linha); }
 .dialogo-cab h3 { font-size: 16px; flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .dialogo-corpo { padding: 18px; overflow-y: auto; display: flex; flex-direction: column; gap: 14px; min-height: 0; flex: 1; }
-.dialogo-rodape { display: flex; justify-content: flex-end; gap: 8px; padding: 14px 18px; border-top: 1px solid var(--linha); background: var(--superficie-2); }
+.dialogo-rodape { display: flex; justify-content: flex-end; align-items: center; flex-wrap: wrap; gap: 8px; padding: 14px 18px; border-top: 1px solid var(--linha); background: var(--superficie-2); }
+.rodape-guardar { margin-right: auto; }
+@media (max-width: 560px) {
+  .rodape-guardar { flex-basis: 100%; }
+  .dialogo-rodape .btn { flex: 1; }
+}
 
 /* paleta de comandos */
 .paleta-capa { align-items: start; padding-top: 12vh; }
@@ -1236,6 +1241,17 @@ body.arrastando-item, body.arrastando-item * { cursor: grabbing !important; user
   outline: 1px dashed transparent;
   cursor: move;
   touch-action: none;
+  user-select: none;
+}
+.editor-folha { touch-action: pan-x pan-y; }
+.editor-folha.modo-desenho { touch-action: none; }
+.alca { touch-action: none; }
+@media (pointer: coarse) {
+  .alca { width: 22px; height: 22px; border-radius: 7px; }
+  .alca.no { left: -12px; top: -12px; } .alca.ne { right: -12px; top: -12px; }
+  .alca.so { left: -12px; bottom: -12px; } .alca.se { right: -12px; bottom: -12px; }
+  .alca.n { left: calc(50% - 11px); top: -12px; } .alca.s { left: calc(50% - 11px); bottom: -12px; }
+  .alca.l { right: -12px; top: calc(50% - 11px); } .alca.o { left: -12px; top: calc(50% - 11px); }
 }
 .editor-elemento:hover { outline-color: var(--info); }
 .editor-elemento.selecionado { outline: 2px solid var(--info); outline-offset: 1px; z-index: 5; }
@@ -1474,6 +1490,7 @@ body.arrastando-item, body.arrastando-item * { cursor: grabbing !important; user
   .resultado-acoes .btn-primario { flex-basis: 100%; height: 50px; }
   .continuar-grade { grid-template-columns: 1fr 1fr; }
 
+  .meta-grade { grid-template-columns: minmax(0, 1fr) !important; }
   .linha-recente { padding: 10px; gap: 10px; }
   .linha-recente .btn-icone { width: 38px; height: 38px; }
   .config-cartao { padding: 16px; }

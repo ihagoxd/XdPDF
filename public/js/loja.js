@@ -118,11 +118,27 @@ export function enviarArquivos(lista, aoProgredir) {
 /* ---------------- tempo real ---------------- */
 
 let fonte = null;
+let inicioServidor = null;
+let timerQueda = null;
 
 export function conectarEventos() {
   if (fonte) return;
   fonte = new EventSource('/api/eventos');
-  fonte.addEventListener('ola', () => mudar((e) => { e.conectado = true; }));
+  fonte.onopen = () => {
+    clearTimeout(timerQueda);
+    mudar((e) => { e.conectado = true; });
+  };
+  fonte.addEventListener('ola', (ev) => {
+    clearTimeout(timerQueda);
+    const { inicio } = JSON.parse(ev.data);
+    // o servidor reiniciou: os arquivos enviados antes não existem mais lá
+    if (inicioServidor && inicio !== inicioServidor && Object.keys(estado.arquivos).length) {
+      mudar((e) => { e.arquivos = {}; });
+      avisar('O XdPDF foi reiniciado. Adicione os arquivos de novo.', 'aviso', { duracao: 9000 });
+    }
+    inicioServidor = inicio;
+    mudar((e) => { e.conectado = true; });
+  });
   fonte.addEventListener('arquivo', (ev) => {
     const a = JSON.parse(ev.data);
     mudar((e) => { e.arquivos[a.id] = a; });
@@ -134,7 +150,15 @@ export function conectarEventos() {
       if (t.estado === 'concluida') e.recentesVersao += 1;
     });
   });
-  fonte.onerror = () => mudar((e) => { e.conectado = false; });
+  fonte.onerror = () => {
+    // quedas rápidas (recarregar a página, reinício) não merecem aviso
+    clearTimeout(timerQueda);
+    timerQueda = setTimeout(() => mudar((e) => { e.conectado = false; }), 3500);
+    if (fonte.readyState === EventSource.CLOSED) {
+      fonte = null;
+      setTimeout(conectarEventos, 2000);
+    }
+  };
 }
 
 export async function carregarSistema() {

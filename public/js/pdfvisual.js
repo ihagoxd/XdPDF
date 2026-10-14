@@ -105,23 +105,37 @@ export async function tamanhos(url) {
   return lista;
 }
 
-/** Desenha uma página grande num canvas existente. */
+const geracoes = new WeakMap();
+
+/**
+ * Desenha uma página grande num canvas da tela.
+ * Cada pedido desenha num canvas próprio fora da tela e só copia no fim: se
+ * o tamanho mudar no meio (ao medir a tela, ao dar zoom), o desenho antigo é
+ * descartado em vez de brigar pelo mesmo canvas.
+ */
 export async function desenharEm(canvas, url, pagina, larguraCss) {
+  const minha = (geracoes.get(canvas) || 0) + 1;
+  geracoes.set(canvas, minha);
   const doc = await abrirDoc(url);
   const pg = await doc.getPage(pagina);
   const base = pg.getViewport({ scale: 1 });
   const dpr = Math.min(window.devicePixelRatio || 1, 2);
-  const escala = (larguraCss / base.width) * dpr;
-  const vp = pg.getViewport({ scale: escala });
-  canvas.width = Math.round(vp.width);
-  canvas.height = Math.round(vp.height);
+  const vp = pg.getViewport({ scale: (larguraCss / base.width) * dpr });
+  const fora = document.createElement('canvas');
+  fora.width = Math.round(vp.width);
+  fora.height = Math.round(vp.height);
+  const ctxFora = fora.getContext('2d');
+  ctxFora.fillStyle = '#fff';
+  ctxFora.fillRect(0, 0, fora.width, fora.height);
+  await pg.render({ canvasContext: ctxFora, viewport: vp }).promise;
+  if (geracoes.get(canvas) !== minha) return null; // já pediram outro desenho
+  canvas.width = fora.width;
+  canvas.height = fora.height;
   canvas.style.width = `${larguraCss}px`;
   canvas.style.height = `${(larguraCss * base.height) / base.width}px`;
-  const ctx = canvas.getContext('2d');
-  ctx.fillStyle = '#fff';
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-  const tarefa = pg.render({ canvasContext: ctx, viewport: vp });
-  await tarefa.promise;
+  canvas.getContext('2d').drawImage(fora, 0, 0);
+  fora.width = 0;
+  fora.height = 0;
   return { largura: base.width, altura: base.height };
 }
 

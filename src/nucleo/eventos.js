@@ -12,6 +12,8 @@
 const { EventEmitter } = require('events');
 
 const clientes = new Set();
+// muda a cada vez que o servidor sobe: a tela percebe que os envios se perderam
+const ID_INICIO = require('crypto').randomBytes(6).toString('hex');
 const emissor = new EventEmitter();
 emissor.setMaxListeners(100);
 
@@ -33,7 +35,7 @@ function conectar(req, res) {
   res.write('retry: 1500\n\n');
   clientes.add(res);
   emissor.emit('clientes', clientes.size);
-  escrever(res, 'ola', { clientes: clientes.size });
+  escrever(res, 'ola', { clientes: clientes.size, inicio: ID_INICIO });
 
   const batida = setInterval(() => res.write(': ping\n\n'), 20000);
   req.on('close', () => {
