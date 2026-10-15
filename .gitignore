@@ -8,3 +8,4 @@ Thumbs.db
 # dados de idioma do OCR (baixados pelo "npm install" / "npm run ocr")
 vendor/tessdata/*.gz
 vendor/tessdata/*.parcial
+dist/

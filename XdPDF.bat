@@ -21,7 +21,7 @@ if not exist "node_modules\express" (
   echo.
   echo   Instalando os componentes. Leva um ou dois minutos e so acontece agora.
   echo.
-  call npm install --no-audit --no-fund
+  call npm install --omit=dev --no-audit --no-fund
   if errorlevel 1 (
     echo.
     echo   [ERRO] A instalacao falhou. Confira a internet e tente de novo.

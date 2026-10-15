@@ -4,24 +4,31 @@ Todas as ferramentas de PDF do dia a dia — juntar, dividir, comprimir, convert
 OCR, assinar, tarjar — num aplicativo que roda **no próprio computador**.
 Nenhum arquivo é enviado para a internet.
 
-## Abrir
+## Instalar
 
-1. Dê dois cliques em **`XdPDF.bat`**.
-   Na primeira vez ele instala os componentes (um ou dois minutos) e cria o
-   atalho **XdPDF** na área de trabalho e no menu Iniciar.
-2. Depois disso, abra pelo atalho. O XdPDF abre numa **janela própria**, sem
-   barra de endereço e sem janela preta.
-3. Fechou a janela, o XdPDF encerra sozinho.
+**Jeito mais fácil:** rode o `XdPDF-Instalador-1.0.0.exe`. Ele instala o XdPDF
+para o seu usuário (não pede senha de administrador), cria os atalhos na área de
+trabalho e no menu Iniciar e aparece em "Adicionar ou remover programas" para
+desinstalar. **Não precisa do Node.js.** Os seus arquivos ficam em
+`%APPDATA%\XdPDF`.
 
-Se o atalho sumir, rode `scripts\criar-atalho.ps1` (botão direito → Executar
-com o PowerShell).
+Como o instalador não tem assinatura digital paga, o Windows pode mostrar
+"O Windows protegeu o computador" na primeira vez: clique em **Mais
+informações → Executar assim mesmo**.
+
+Para gerar o instalador a partir do código: `npm install` e depois
+`npm run instalador` — o arquivo sai em `dist/`.
+
+**Sem instalar (pela pasta do código):** dê dois cliques em **`XdPDF.bat`**. Na
+primeira vez ele instala os componentes e cria o atalho **XdPDF**; depois, o
+atalho abre o app numa janela própria do Edge. Esse jeito precisa do Node.js.
 
 ### Requisitos
 
 | O quê | Para quê |
 |---|---|
 | Windows 10 ou 11 | — |
-| [Node.js](https://nodejs.org) LTS (20 ou mais novo) | obrigatório |
+| [Node.js](https://nodejs.org) LTS (20 ou mais novo) | só para rodar pela pasta do código (o instalador já traz tudo) |
 | Microsoft Edge ou Google Chrome | a janela do app e o "Site para PDF" (o Edge já vem no Windows) |
 | Microsoft Office **ou** LibreOffice | só para Word/Excel/PowerPoint → PDF |
 | Ghostscript | opcional: compressão extra e PDF/A mais rigoroso |
@@ -138,6 +145,8 @@ principal para todos com `HOST=0.0.0.0`; nesse caso não há código de acesso.
 npm install      # instala (e baixa os dados do OCR)
 npm start        # servidor em http://127.0.0.1:3020 + navegador
 npm run app      # como o atalho: janela própria, encerra ao fechar
+npm run desktop  # o app desktop (Electron), como fica depois de instalado
+npm run instalador  # gera dist/XdPDF-Instalador-<versão>.exe
 npm test         # testa todas as ferramentas de ponta a ponta
 npm run icones   # regenera os ícones a partir de public/icones/xdpdf.svg
 npm run ocr      # baixa de novo os dados do OCR
@@ -147,6 +156,7 @@ Variáveis: `PORT` (padrão `3020`), `HOST` (padrão `127.0.0.1`), `ABRIR=0` par
 não abrir janela, `XDPDF_DADOS` para mudar a pasta de dados.
 
 ```
+electron/main.js        o app desktop: sobe o servidor e abre a janela
 src/
   server.js             servidor, janela do app e encerramento automático
   rotas/api.js          API (arquivos, ferramentas, tarefas, resultados)

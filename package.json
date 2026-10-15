@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "description": "XdPDF — todas as ferramentas de PDF num app local. Nenhum arquivo sai do computador.",
-  "main": "src/server.js",
+  "main": "electron/main.js",
   "scripts": {
     "start": "node src/server.js",
     "app": "node src/server.js --app",
@@ -11,7 +11,9 @@
     "test": "node --test --test-timeout=300000 \"test/*.test.js\"",
     "ocr": "node scripts/baixar-ocr.js",
     "icones": "node scripts/gerar-icones.js",
-    "postinstall": "node scripts/baixar-ocr.js --silencioso"
+    "postinstall": "node scripts/baixar-ocr.js --silencioso",
+    "desktop": "electron .",
+    "instalador": "electron-builder --win nsis --x64"
   },
   "engines": {
     "node": ">=20"
@@ -30,5 +32,62 @@
     "qrcode-generator": "^2.0.4",
     "sharp": "^0.34.5",
     "tesseract.js": "^7.0.0"
+  },
+  "build": {
+    "appId": "com.ihagomartins.xdpdf",
+    "productName": "XdPDF",
+    "copyright": "Ihago Martins",
+    "asar": false,
+    "npmRebuild": false,
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "electron/**",
+      "src/**",
+      "public/**",
+      "vendor/**",
+      "package.json",
+      "!**/*.map",
+      "!**/*.d.ts",
+      "!**/*.md",
+      "!node_modules/pdfjs-dist/web/**",
+      "!node_modules/pdfjs-dist/image_decoders/**",
+      "!node_modules/pdfjs-dist/types/**"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "public/icones/xdpdf.ico",
+      "artifactName": "XdPDF-Instalador-${version}.${ext}",
+      "executableName": "XdPDF"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "XdPDF",
+      "uninstallDisplayName": "XdPDF",
+      "installerIcon": "public/icones/xdpdf.ico",
+      "uninstallerIcon": "public/icones/xdpdf.ico",
+      "installerLanguages": [
+        "pt_BR"
+      ],
+      "language": "1046",
+      "runAfterFinish": true,
+      "deleteAppDataOnUninstall": false
+    }
+  },
+  "devDependencies": {
+    "electron": "^44.4.5",
+    "electron-builder": "^26.15.3"
   }
 }

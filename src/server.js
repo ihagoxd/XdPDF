@@ -16,8 +16,8 @@ const api = require('./rotas/api');
 
 /* ---------------- registro em arquivo no modo app ---------------- */
 
-// No modo app não há janela de console: o que der errado vai para dados/xdpdf.log.
-if (config.MODO_APP && !process.stdout.isTTY) {
+// Sem janela de console (modo app ou instalador): o que der errado vai para dados/xdpdf.log.
+if ((config.MODO_APP || process.env.XDPDF_LOG === '1') && !process.stdout.isTTY) {
   const log = fs.createWriteStream(path.join(config.pastas.dados, 'xdpdf.log'), { flags: 'a' });
   const escrever = (nivel) => (...partes) => {
     const linha = partes.map((p) => (p instanceof Error ? p.stack : typeof p === 'string' ? p : JSON.stringify(p))).join(' ');
@@ -68,15 +68,23 @@ app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
 
 /* ---------------- inicialização ---------------- */
 
-async function iniciar() {
+/**
+ * Sobe o servidor.
+ * @param {object} [op]
+ * @param {boolean} [op.abrirJanela]  abre a janela (Edge em modo app ou o navegador)
+ * @param {boolean} [op.modoApp]      encerra quando a última janela fechar
+ * @param {boolean} [op.unicaInstancia] se já houver um XdPDF nesta porta, só abre a janela dele
+ * @returns {Promise<{url:string, servidor:http.Server}|null>} null quando outra instância assumiu
+ */
+async function iniciar({ abrirJanela = config.ABRIR_JANELA, modoApp = config.MODO_APP, unicaInstancia = true } = {}) {
   const url = `http://${config.HOST === '0.0.0.0' ? '127.0.0.1' : config.HOST}:${config.PORTA}`;
 
   // Já tem um XdPDF rodando? Então só abre outra janela dele.
-  if (await janela.jaRodando(url)) {
+  if (unicaInstancia && await janela.jaRodando(url)) {
     console.log(`  O XdPDF já está aberto em ${url}`);
-    if (config.ABRIR_JANELA) await janela.abrir(url);
+    if (abrirJanela) await janela.abrir(url);
     setTimeout(() => process.exit(0), 1500);
-    return;
+    return null;
   }
 
   await armazem.faxina({ inicio: true });
@@ -89,35 +97,36 @@ async function iniciar() {
   servidor.headersTimeout = 120000;
   servidor.keepAliveTimeout = 65000;
 
-  servidor.on('error', (err) => {
-    if (err.code === 'EADDRINUSE') {
-      console.error(`  A porta ${config.PORTA} já está em uso por outro programa. Use PORT=outra_porta.`);
-    } else {
-      console.error(err);
-    }
-    process.exit(1);
+  await new Promise((resolve, reject) => {
+    servidor.once('error', (err) => {
+      if (err.code === 'EADDRINUSE') console.error(`  A porta ${config.PORTA} já está em uso por outro programa. Use PORT=outra_porta.`);
+      else console.error(err);
+      reject(err);
+    });
+    servidor.listen(config.PORTA, config.HOST, resolve);
   });
 
-  servidor.listen(config.PORTA, config.HOST, async () => {
-    console.log('');
-    console.log(`  XdPDF ${config.VERSAO} — ferramentas de PDF, tudo no seu computador`);
-    console.log(`  Rodando em ${url}`);
-    if (config.HOST !== '127.0.0.1') console.log(`  Aceitando conexões da rede (HOST=${config.HOST})`);
-    console.log('  Ctrl+C para encerrar.');
-    console.log('');
+  console.log('');
+  console.log(`  XdPDF ${config.VERSAO} — ferramentas de PDF, tudo no seu computador`);
+  console.log(`  Rodando em ${url}`);
+  if (config.HOST !== '127.0.0.1') console.log(`  Aceitando conexões da rede (HOST=${config.HOST})`);
+  console.log('  Ctrl+C para encerrar.');
+  console.log('');
 
-    if (configuracao.ler().acessoRede) await rede.ligar(app);
-    if (config.ABRIR_JANELA) await janela.abrir(url, { modoApp: config.MODO_APP });
-    if (config.MODO_APP) janela.encerrarQuandoFechar(eventos);
-  });
-}
-
-iniciar();
-
-for (const sinal of ['SIGINT', 'SIGTERM']) {
-  process.on(sinal, () => process.exit(0));
+  if (configuracao.ler().acessoRede) await rede.ligar(app);
+  if (abrirJanela) await janela.abrir(url, { modoApp });
+  if (modoApp) janela.encerrarQuandoFechar(eventos);
+  return { url, servidor };
 }
 
 // Rede de segurança: um erro solto não pode derrubar o app no meio de um trabalho.
 process.on('unhandledRejection', (err) => console.error('[falha não tratada]', err));
 process.on('uncaughtException', (err) => console.error('[erro inesperado]', err));
+
+// Rodando direto (node src/server.js): sobe sozinho. Dentro do app (Electron), quem chama é o main.
+if (require.main === module) {
+  iniciar().catch(() => process.exit(1));
+  for (const sinal of ['SIGINT', 'SIGTERM']) process.on(sinal, () => process.exit(0));
+}
+
+module.exports = { app, iniciar };
