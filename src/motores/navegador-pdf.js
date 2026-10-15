@@ -24,6 +24,13 @@ const PAPEIS = {
 };
 const MARGENS = { nenhuma: 0, pequena: 0.25, normal: 0.6 };
 
+// Navegadores abertos agora. Se o MeuPDF fechar no meio de uma conversão,
+// eles vão junto (no Windows o processo filho não morre com o pai).
+const abertos = new Set();
+process.on('exit', () => {
+  for (const p of abertos) { try { p.kill(); } catch (_) { /* já saiu */ } }
+});
+
 /* ---------------- HTML colado: servido uma vez pelo próprio servidor ---------------- */
 
 const paginasColadas = new Map();
@@ -42,7 +49,7 @@ function servirHtmlColado(req, res) {
   const item = paginasColadas.get(req.params.token);
   paginasColadas.delete(req.params.token);
   if (!item || item.expira < Date.now()) return res.status(404).end();
-  // página isolada: não consegue conversar com o XdPDF nem mandar nada para fora
+  // página isolada: não consegue conversar com o MeuPDF nem mandar nada para fora
   res.setHeader('Content-Security-Policy', "sandbox allow-scripts; connect-src 'none'; form-action 'none'");
   res.type('html').send(item.corpo);
 }
@@ -147,7 +154,7 @@ async function paraPdf({ endereco = '', html = '', papel = 'a4', orientacao = 'r
     }
   }
 
-  const perfil = await fsp.mkdtemp(path.join(os.tmpdir(), 'xdpdf-nav-'));
+  const perfil = await fsp.mkdtemp(path.join(os.tmpdir(), 'meupdf-nav-'));
   const processo = spawn(navegador, [
     '--headless=new',
     '--remote-debugging-port=0',
@@ -157,6 +164,8 @@ async function paraPdf({ endereco = '', html = '', papel = 'a4', orientacao = 'r
     ...(so.EH_WINDOWS ? [] : ['--no-sandbox', '--disable-dev-shm-usage']),
     'about:blank',
   ], { stdio: 'ignore', windowsHide: true });
+  abertos.add(processo);
+  processo.once('exit', () => abertos.delete(processo));
 
   let cdp = null;
   try {
