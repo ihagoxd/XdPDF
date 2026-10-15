@@ -1,7 +1,7 @@
 import { html, useEffect, useRef, useState, cx, corDaExtensao, extensao } from '../lib.js';
 import { Icone } from '../icones.js';
 import { IconeFerramenta } from '../icones-ferramentas.js';
-import { useLoja, fecharAviso } from '../loja.js';
+import { useLoja, fecharAviso, estado as estadoGlobal, api } from '../loja.js';
 
 /* ---------------- rotas (#/...) ---------------- */
 
@@ -58,6 +58,23 @@ export function Dialogo({ titulo, aoFechar, children, rodape, classe = '', icone
       ${rodape && html`<div class="dialogo-rodape">${rodape}</div>`}
     </div>
   </div>`;
+}
+
+/* ---------------- crédito ---------------- */
+
+export const INSTAGRAM = 'https://www.instagram.com/ihagomartins1/';
+
+/** "Desenvolvido por Ihago Martins" — leva ao Instagram. */
+export function Credito({ classe = '' }) {
+  const clicar = (e) => {
+    const s = estadoGlobal.sistema;
+    // na janela do app o link abriria no perfil isolado do XdPDF; vai para o navegador de sempre
+    if (s && s.modoApp && s.local) { e.preventDefault(); api.post('/abrir-instagram').catch(() => window.open(INSTAGRAM, '_blank')); }
+  };
+  return html`<a class=${cx('credito', classe)} href=${INSTAGRAM} target="_blank" rel="noopener noreferrer"
+      title="Abrir o Instagram @ihagomartins1" onClick=${clicar}>
+    <span>Desenvolvido por <strong>Ihago Martins</strong></span>
+  </a>`;
 }
 
 /* ---------------- pequenos componentes ---------------- */

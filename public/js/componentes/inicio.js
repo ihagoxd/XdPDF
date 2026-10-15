@@ -2,7 +2,7 @@ import { html, useState, useEffect, useRef, cx, preferencias, tamanho, dataRelat
 import { Icone } from '../icones.js';
 import { CATEGORIAS, FERRAMENTAS, POR_ID, buscar, indisponivel } from '../catalogo.js';
 import { useLoja, api, avisar } from '../loja.js';
-import { ir, Ladrilho, IconeArquivo, ehCampoDeTexto } from './base.js';
+import { ir, Ladrilho, IconeArquivo, ehCampoDeTexto, Credito } from './base.js';
 
 function CartaoFerramenta({ f, favorita, aoFavoritar, motivo }) {
   const abrir = () => {
@@ -105,7 +105,9 @@ export function Inicio({ categoria, aoCategoria }) {
 
     <div class="filtros" role="tablist">
       <button class=${cx('filtro', !categoria && 'ativo')} onClick=${() => aoCategoria(null)}>Todas</button>
-      ${CATEGORIAS.map((c) => html`<button key=${c.id} class=${cx('filtro', categoria === c.id && 'ativo')} onClick=${() => aoCategoria(c.id)}>${c.titulo}</button>`)}
+      ${CATEGORIAS.map((c) => html`<button key=${c.id} class=${cx('filtro', categoria === c.id && 'ativo')} style=${`--cor:${c.cor}`} onClick=${() => aoCategoria(c.id)}>
+        <${Icone} nome=${c.icone} tam=${15} />${c.titulo}
+      </button>`)}
     </div>
 
     ${mostrandoTudo && favs.length > 0 && html`<div class="secao">
@@ -118,10 +120,12 @@ export function Inicio({ categoria, aoCategoria }) {
         ? html`<div class="secao"><div class="grade-ferramentas">${achadas.map(cartao)}</div></div>`
         : html`<div class="vazio-estado"><${Icone} nome="busca" tam=${36} /><strong>Nada encontrado</strong>Tente outra palavra, como "juntar" ou "senha".</div>`)
       : CATEGORIAS.filter((c) => !categoria || c.id === categoria).map((c) => html`<div class="secao" key=${c.id}>
-          <div class="secao-titulo">${c.titulo}</div>
+          <div class="secao-titulo" style=${`--cor:${c.cor}`}><span class="secao-icone"><${Icone} nome=${c.icone} tam=${15} /></span>${c.titulo}</div>
           <div class="grade-ferramentas">${FERRAMENTAS.filter((f) => f.categoria === c.id).map(cartao)}</div>
         </div>`)}
 
     ${mostrandoTudo && html`<${Recentes} />`}
+
+    <footer class="rodape-pagina"><${Credito} classe="so-movel-credito" /></footer>
   </div>`;
 }

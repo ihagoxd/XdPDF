@@ -84,4 +84,4 @@ function encerrarQuandoFechar(eventos) {
   });
 }
 
-module.exports = { jaRodando, abrir, encerrarQuandoFechar };
+module.exports = { jaRodando, abrir, encerrarQuandoFechar, abrirNoNavegadorPadrao };

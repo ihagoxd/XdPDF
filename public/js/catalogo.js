@@ -3,12 +3,12 @@
    ============================================================ */
 
 export const CATEGORIAS = [
-  { id: 'organizar', titulo: 'Organizar', cor: '#e5484d' },
-  { id: 'otimizar', titulo: 'Otimizar', cor: '#30a46c' },
-  { id: 'para-pdf', titulo: 'Converter para PDF', cor: '#d97706' },
-  { id: 'de-pdf', titulo: 'Converter de PDF', cor: '#2b579a' },
-  { id: 'editar', titulo: 'Editar', cor: '#6e56cf' },
-  { id: 'seguranca', titulo: 'Segurança', cor: '#3a5bc7' },
+  { id: 'organizar', icone: 'organizar', titulo: 'Organizar', cor: '#e5484d' },
+  { id: 'otimizar', icone: 'otimizar', titulo: 'Otimizar', cor: '#30a46c' },
+  { id: 'para-pdf', icone: 'paraPdf', titulo: 'Converter para PDF', cor: '#d97706' },
+  { id: 'de-pdf', icone: 'dePdf', titulo: 'Converter de PDF', cor: '#2b579a' },
+  { id: 'editar', icone: 'editar', titulo: 'Editar', cor: '#6e56cf' },
+  { id: 'seguranca', icone: 'escudo', titulo: 'Segurança', cor: '#3a5bc7' },
 ];
 
 const PDF = ['pdf'];

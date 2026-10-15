@@ -245,7 +245,14 @@ kbd {
 }
 .nav-item:hover { background: var(--superficie-3); color: var(--texto); }
 .nav-item.ativo { background: var(--superficie); color: var(--texto); box-shadow: var(--sombra-1); font-weight: 600; }
-.nav-item .nav-ponto { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin: 0 4px; }
+.nav-item .nav-icone {
+  width: 26px; height: 26px; border-radius: 8px;
+  display: grid; place-items: center; flex-shrink: 0;
+  margin-left: -4px;
+  color: var(--cor);
+  background: color-mix(in srgb, var(--cor) 13%, transparent);
+}
+.nav-item.ativo .nav-icone { background: var(--cor); color: #fff; }
 .nav-item .nav-contador { margin-left: auto; font-size: 11px; color: var(--texto-3); font-variant-numeric: tabular-nums; }
 
 .lateral-rodape {
@@ -263,6 +270,21 @@ kbd {
   font-size: 12px; font-weight: 600;
 }
 .selo-local small { display: block; font-weight: 400; color: var(--texto-2); font-size: 11px; }
+.credito {
+  display: flex; align-items: center; gap: 7px;
+  padding: 6px 8px;
+  border-radius: 9px;
+  font-size: 12px;
+  color: var(--texto-3);
+  text-decoration: none;
+  transition: color var(--transicao), background var(--transicao);
+}
+.credito strong { font-weight: 650; color: var(--texto-2); }
+.credito:hover { background: var(--superficie-3); color: var(--texto-2); }
+.credito:hover strong { color: var(--texto); }
+.credito-cartao { align-self: flex-start; padding: 8px 12px; border: 1px solid var(--linha); background: var(--superficie-2); font-size: 13px; }
+.rodape-pagina { display: none; justify-content: center; margin-top: 34px; }
+
 .tema-alternador {
   display: grid; grid-template-columns: repeat(3, 1fr);
   background: var(--superficie-3);
@@ -368,6 +390,7 @@ kbd {
 
 .filtros { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 26px; }
 .filtro {
+  display: inline-flex; align-items: center; gap: 6px;
   height: 32px; padding: 0 13px;
   border-radius: 999px;
   border: 1px solid var(--linha);
@@ -378,7 +401,15 @@ kbd {
   transition: all var(--transicao);
 }
 .filtro:hover { color: var(--texto); border-color: var(--linha-forte); }
+.filtro .icone { color: var(--cor, currentColor); }
 .filtro.ativo { background: var(--texto); color: var(--bg); border-color: var(--texto); }
+.filtro.ativo .icone { color: inherit; }
+.secao-icone {
+  width: 24px; height: 24px; border-radius: 7px;
+  display: grid; place-items: center;
+  color: var(--cor);
+  background: color-mix(in srgb, var(--cor) 13%, transparent);
+}
 
 .secao-titulo {
   display: flex; align-items: center; gap: 10px;
@@ -1166,6 +1197,9 @@ body.arrastando-item, body.arrastando-item * { cursor: grabbing !important; user
   border: 1px solid var(--linha);
 }
 .linha-recente .texto { flex: 1; min-width: 0; }
+a.linha-recente { text-decoration: none; color: inherit; transition: border-color var(--transicao), box-shadow var(--transicao); }
+a.linha-recente:hover { border-color: var(--linha-forte); box-shadow: var(--sombra-1); }
+a.linha-recente > .icone { color: var(--texto-3); flex-shrink: 0; }
 .linha-recente .texto strong { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 600; }
 .linha-recente .texto small { color: var(--texto-3); font-size: 12px; }
 .linha-recente .acoes-linha { display: flex; gap: 2px; flex-shrink: 0; }
@@ -1454,6 +1488,7 @@ body.arrastando-item, body.arrastando-item * { cursor: grabbing !important; user
   .zona-soltar .zona-icone { width: 60px; height: 60px; border-radius: 18px; }
   .zona-soltar .btn-g { width: 100%; }
   .zona-soltar .so-desktop { display: none; }
+  .rodape-pagina { display: flex; }
   .so-movel { display: inline-flex !important; }
   .bancada { grid-template-columns: minmax(0, 1fr); gap: 16px; }
   .painel-opcoes { position: static; max-height: none; }
@@ -1505,8 +1540,9 @@ body.arrastando-item, body.arrastando-item * { cursor: grabbing !important; user
   .continuar-grade { grid-template-columns: 1fr 1fr; }
 
   .meta-grade { grid-template-columns: minmax(0, 1fr) !important; }
-  .linha-recente { padding: 10px 12px; gap: 10px; flex-wrap: wrap; }
-  .linha-recente .texto { flex: 1 1 calc(100% - 60px); }
+  .linha-recente { padding: 10px 12px; gap: 10px; }
+  .lista-recentes .linha-recente { flex-wrap: wrap; }
+  .lista-recentes .linha-recente .texto { flex: 1 1 calc(100% - 60px); }
   .linha-recente .acoes-linha { flex-basis: 100%; justify-content: flex-end; border-top: 1px solid var(--linha); padding-top: 6px; }
   .linha-recente .btn-icone { width: 40px; height: 40px; }
   .config-cartao { padding: 16px; }

@@ -1,6 +1,7 @@
 import { html, useState, cx } from '../lib.js';
 import { Icone } from '../icones.js';
 import { api, avisar, useLoja, carregarSistema } from '../loja.js';
+import { Credito } from './base.js';
 
 function Capacidade({ ok, titulo, detalhe }) {
   return html`<div class="capacidade">
@@ -66,6 +67,7 @@ export function Configuracoes() {
         <h3>Sobre</h3>
         <p style="color:var(--texto-2)">XdPDF ${sistema ? sistema.versao : ''} — todas as operações acontecem neste computador. Os arquivos enviados são apagados em até 12 horas e os resultados em 7 dias.</p>
         <p style="color:var(--texto-2)">Atalhos: <kbd>Ctrl</kbd> + <kbd>K</kbd> procura ferramentas · <kbd>Ctrl</kbd> + <kbd>O</kbd> adiciona arquivos · <kbd>Esc</kbd> fecha janelas.</p>
+        <${Credito} classe="credito-cartao" />
       </div>
     </div>
   </div>`;

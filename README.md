@@ -155,3 +155,7 @@ test/                   testes de ponta a ponta com PDFs gerados na hora
 
 Num servidor Linux, instale LibreOffice e Chromium para as conversões de Office
 e de sites; o resto funciona igual.
+
+---
+
+Desenvolvido por **Ihago Martins** — [@ihagomartins1](https://www.instagram.com/ihagomartins1/)

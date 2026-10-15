@@ -16,6 +16,7 @@
   "engines": {
     "node": ">=20"
   },
+  "author": "Ihago Martins (https://www.instagram.com/ihagomartins1/)",
   "license": "UNLICENSED",
   "dependencies": {
     "@cantoo/fontkit": "^2.0.12",

@@ -223,6 +223,13 @@ router.post('/resultados/:id/abrir', seguro(async (req, res) => {
   res.json({ ok: true });
 }));
 
+// Crédito: na janela do app, abre o Instagram no navegador de sempre (onde a pessoa está logada).
+router.post('/abrir-instagram', (req, res) => {
+  if (!ehLocal(req)) return res.status(403).json({ ok: false });
+  require('../nucleo/janela').abrirNoNavegadorPadrao('https://www.instagram.com/ihagomartins1/');
+  res.json({ ok: true });
+});
+
 router.post('/abrir-pasta', seguro(async (req, res) => {
   if (!ehLocal(req)) throw new ErroUsuario('Só funciona no próprio computador.');
   const pasta = configuracao.ler().pastaSaida;

@@ -1,7 +1,7 @@
 import { html, useState, cx } from '../lib.js';
 import { Icone } from '../icones.js';
 import { CATEGORIAS } from '../catalogo.js';
-import { ir } from './base.js';
+import { ir, Credito } from './base.js';
 
 function lerTema() {
   try { return localStorage.getItem('xdpdf-tema') || 'sistema'; } catch (_) { return 'sistema'; }
@@ -42,7 +42,7 @@ export function Lateral({ rota, aoBuscar, categoria, aoCategoria }) {
       ${CATEGORIAS.map((c) => html`<button key=${c.id}
           class=${cx('nav-item', naInicio && categoria === c.id && 'ativo')}
           onClick=${() => { aoCategoria(c.id); ir('/'); }}>
-          <span class="nav-ponto" style=${`background:${c.cor}`}></span><span>${c.titulo}</span>
+          <span class="nav-icone" style=${`--cor:${c.cor}`}><${Icone} nome=${c.icone} tam=${16} /></span><span>${c.titulo}</span>
         </button>`)}
       <div class="nav-secao">Seu trabalho</div>
       <button class=${cx('nav-item', rota.tela === 'recentes' && 'ativo')} onClick=${() => ir('/recentes')}>
@@ -63,6 +63,7 @@ export function Lateral({ rota, aoBuscar, categoria, aoCategoria }) {
         <button class=${cx(tema === 'sistema' && 'ativo')} onClick=${() => trocarTema('sistema')} title="Igual ao Windows" aria-label="Tema do sistema"><${Icone} nome="monitor" tam=${16} /></button>
         <button class=${cx(tema === 'escuro' && 'ativo')} onClick=${() => trocarTema('escuro')} title="Tema escuro" aria-label="Tema escuro"><${Icone} nome="lua" tam=${16} /></button>
       </div>
+      <${Credito} />
     </div>
   </aside>`;
 }
