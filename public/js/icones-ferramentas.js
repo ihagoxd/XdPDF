@@ -1,7 +1,7 @@
 import { html } from './lib.js';
 
 /* ============================================================
-   Ícones das ferramentas — desenhados para o XdPDF.
+   Ícones das ferramentas — desenhados para o MeuPDF.
    Chapados, em dois tons da cor da ferramenta (currentColor):
    folha clara, dobra média e o símbolo cheio.
    Grade de 48x48.

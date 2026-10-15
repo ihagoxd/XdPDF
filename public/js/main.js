@@ -21,10 +21,10 @@ function App() {
   // título da janela acompanha a tela
   useEffect(() => {
     const f = rota.tela === 'f' && POR_ID[rota.param];
-    document.title = f ? `${f.titulo} · XdPDF`
-      : rota.tela === 'recentes' ? 'Recentes · XdPDF'
-      : rota.tela === 'config' ? 'Configurações · XdPDF'
-      : 'XdPDF';
+    document.title = f ? `${f.titulo} · MeuPDF`
+      : rota.tela === 'recentes' ? 'Recentes · MeuPDF'
+      : rota.tela === 'config' ? 'Configurações · MeuPDF'
+      : 'MeuPDF';
     const principal = document.querySelector('.principal');
     if (principal) principal.scrollTop = 0;
   }, [rota.tela, rota.param]);
@@ -47,7 +47,7 @@ function App() {
     <${TopoMovel} rota=${rota} aoBuscar=${() => setPaleta(true)} />
     <main class="principal" id="principal">
       ${sistema && !conectado && html`<div class="pagina" style="padding-bottom:0">
-        <div class="alerta aviso">Sem conexão com o XdPDF. Tentando de novo... Se o programa foi fechado, abra o XdPDF outra vez.</div>
+        <div class="alerta aviso">Sem conexão com o MeuPDF. Tentando de novo... Se o programa foi fechado, abra o MeuPDF outra vez.</div>
       </div>`}
       ${tela}
     </main>
@@ -65,9 +65,9 @@ function TopoMovel({ rota, aoBuscar }) {
     ${f
       ? html`<button class="btn-icone" onClick=${() => (history.length > 1 ? history.back() : ir('/'))} aria-label="Voltar"><${Icone} nome="voltar" tam=${21} /></button>
         <span class="topo-movel-titulo">${f.titulo}</span>`
-      : html`<a class="marca" href="#/" aria-label="XdPDF">
-          <img class="marca-logo" src="/icones/xdpdf.svg" alt="" />
-          <span class="marca-nome"><b>Xd</b>PDF</span>
+      : html`<a class="marca" href="#/" aria-label="MeuPDF">
+          <img class="marca-logo" src="/icones/meupdf.svg" alt="" />
+          <span class="marca-nome"><b>Meu</b>PDF</span>
         </a>`}
     <button class="btn-icone" onClick=${aoBuscar} aria-label="Procurar ferramenta"><${Icone} nome="busca" tam=${20} /></button>
   </header>`;
@@ -90,7 +90,7 @@ function iniciar() {
   // desenha na hora; o que esta máquina tem instalado chega logo depois
   render(html`<${App} />`, document.getElementById('app'));
   if (!location.hash) ir('/');
-  carregarSistema().catch(() => avisar('Não consegui falar com o servidor do XdPDF.', 'erro'));
+  carregarSistema().catch(() => avisar('Não consegui falar com o servidor do MeuPDF.', 'erro'));
 }
 
 iniciar();

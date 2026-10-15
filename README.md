@@ -1,19 +1,19 @@
 <div align="center">
 
-<img src="public/icones/xdpdf-192.png" width="88" alt="XdPDF">
+<img src="public/icones/meupdf-192.png" width="88" alt="MeuPDF">
 
-# XdPDF
+# MeuPDF
 
 **Todas as ferramentas de PDF num app para Windows — sem mandar nada para a internet.**
 
 31 ferramentas — juntar, dividir, comprimir, converter, OCR, assinar, tarjar e
 muito mais — rodando no seu computador. Funciona também no celular.
 
-[**⬇ Baixar para Windows**](https://github.com/ihagoxd/XdPDF/releases/latest)
+[**⬇ Baixar para Windows**](https://github.com/ihagoxd/MeuPDF/releases/latest)
 &nbsp;·&nbsp; [Ferramentas](#ferramentas) &nbsp;·&nbsp; [Usar no celular](#usar-no-celular) &nbsp;·&nbsp; [Desenvolvimento](#desenvolvimento)
 
-[![Versão](https://img.shields.io/github/v/release/ihagoxd/XdPDF?label=vers%C3%A3o&color=e8383d)](https://github.com/ihagoxd/XdPDF/releases/latest)
-[![Testes](https://github.com/ihagoxd/XdPDF/actions/workflows/testes.yml/badge.svg)](https://github.com/ihagoxd/XdPDF/actions/workflows/testes.yml)
+[![Versão](https://img.shields.io/github/v/release/ihagoxd/MeuPDF?label=vers%C3%A3o&color=e8383d)](https://github.com/ihagoxd/MeuPDF/releases/latest)
+[![Testes](https://github.com/ihagoxd/MeuPDF/actions/workflows/testes.yml/badge.svg)](https://github.com/ihagoxd/MeuPDF/actions/workflows/testes.yml)
 [![Licença MIT](https://img.shields.io/badge/licen%C3%A7a-MIT-3a5bc7)](LICENSE)
 ![Windows 10 e 11](https://img.shields.io/badge/Windows-10%20%7C%2011-0588f0)
 
@@ -21,15 +21,15 @@ muito mais — rodando no seu computador. Funciona também no celular.
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/inicio-escuro.png">
-  <img src="docs/inicio-claro.png" alt="Tela inicial do XdPDF com as ferramentas organizadas por categoria">
+  <img src="docs/inicio-claro.png" alt="Tela inicial do MeuPDF com as ferramentas organizadas por categoria">
 </picture>
 
 ## Instalar
 
-1. Baixe o instalador (`XdPDF-Instalador-<versão>.exe`) na [página de versões](https://github.com/ihagoxd/XdPDF/releases/latest).
+1. Baixe o instalador (`MeuPDF-Instalador-<versão>.exe`) na [página de versões](https://github.com/ihagoxd/MeuPDF/releases/latest).
 2. Rode o instalador. Ele instala só para o seu usuário (não pede senha de
    administrador) e cria os atalhos na área de trabalho e no menu Iniciar.
-3. Pronto: o XdPDF abre numa janela própria. Para desinstalar, use
+3. Pronto: o MeuPDF abre numa janela própria. Para desinstalar, use
    "Adicionar ou remover programas".
 
 > O instalador não tem assinatura digital paga, então na primeira vez o Windows
@@ -90,26 +90,26 @@ e enviar de novo.
 
 Em **Configurações → Usar no celular**, ligue "Permitir acesso pelo celular".
 Aparece um **QR Code**: aponte a câmera do celular (na mesma rede Wi-Fi) e o
-XdPDF abre já liberado. Também dá para digitar o endereço e o código de 6
+MeuPDF abre já liberado. Também dá para digitar o endereço e o código de 6
 números que aparecem ali.
 
 - Só entra quem tem o código. Depois de várias tentativas erradas, o aparelho
   fica bloqueado por 15 minutos. "Gerar outro código" desconecta todo mundo.
 - Pelo celular dá para usar todas as ferramentas e baixar os resultados; mudar
   configurações e abrir pastas do computador, não.
-- Na primeira vez, o Windows pode perguntar se o XdPDF pode usar a rede:
+- Na primeira vez, o Windows pode perguntar se o MeuPDF pode usar a rede:
   escolha **Redes privadas**.
 
-<img src="docs/celular.png" alt="XdPDF no celular: lista de ferramentas, arquivos para juntar e resultado pronto">
+<img src="docs/celular.png" alt="MeuPDF no celular: lista de ferramentas, arquivos para juntar e resultado pronto">
 
 ## Privacidade
 
 - Tudo é processado no próprio computador. O único acesso à internet é o do
   "Site para PDF", para carregar a página pedida.
-- Os arquivos enviados são apagados em até 12 horas (e sempre que o XdPDF
+- Os arquivos enviados são apagados em até 12 horas (e sempre que o MeuPDF
   reinicia). Os resultados ficam 7 dias em **Arquivos recentes**.
-- No app instalado, tudo fica em `%APPDATA%\XdPDF`.
-- Por padrão o XdPDF só aceita conexões do próprio computador.
+- No app instalado, tudo fica em `%APPDATA%\MeuPDF`.
+- Por padrão o MeuPDF só aceita conexões do próprio computador.
 
 ## Atalhos
 
@@ -129,17 +129,17 @@ Precisa do [Node.js](https://nodejs.org) 22 ou mais novo.
 npm install         # instala tudo (e baixa os dados do OCR)
 npm start           # servidor em http://127.0.0.1:3020 e abre o navegador
 npm run desktop     # o app desktop, como fica depois de instalado
-npm run instalador  # gera dist/XdPDF-Instalador-<versão>.exe
+npm run instalador  # gera dist/MeuPDF-Instalador-<versão>.exe
 npm test            # testa todas as ferramentas de ponta a ponta
-npm run icones      # regenera os ícones a partir de public/icones/xdpdf.svg
+npm run icones      # regenera os ícones a partir de public/icones/meupdf.svg
 ```
 
-Sem instalar nada além do Node.js, o **`XdPDF.bat`** prepara tudo e cria um
+Sem instalar nada além do Node.js, o **`MeuPDF.bat`** prepara tudo e cria um
 atalho que abre o app numa janela própria do Edge.
 
 Variáveis: `PORT` (padrão `3020`), `HOST` (padrão `127.0.0.1`; `0.0.0.0` libera
 a rede inteira sem código, para servidores internos), `ABRIR=0` para não abrir
-janela e `XDPDF_DADOS` para mudar a pasta de dados.
+janela e `MEUPDF_DADOS` para mudar a pasta de dados.
 
 ```
 electron/main.js   app desktop: sobe o servidor e abre a janela

@@ -49,7 +49,7 @@ function novoCodigo() {
 
 /** O valor do cookie depende do código: trocar o código desconecta todo mundo. */
 function ficha(codigo) {
-  return crypto.createHash('sha256').update(`xdpdf:${codigo}:${config.pastas.dados}`).digest('base64url').slice(0, 32);
+  return crypto.createHash('sha256').update(`meupdf:${codigo}:${config.pastas.dados}`).digest('base64url').slice(0, 32);
 }
 
 function lerCookie(req, nome) {
@@ -76,8 +76,8 @@ function errou(ip) {
 
 function paginaEntrada(mensagem = '') {
   return `<!doctype html><html lang="pt-BR"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1"><title>XdPDF</title>
-<link rel="icon" href="/icones/xdpdf.svg"><meta name="theme-color" content="#e8383d">
+<meta name="viewport" content="width=device-width, initial-scale=1"><title>MeuPDF</title>
+<link rel="icon" href="/icones/meupdf.svg"><meta name="theme-color" content="#e8383d">
 <style>
   :root { color-scheme: light dark; }
   *, *::before, *::after { box-sizing: border-box; }
@@ -93,8 +93,8 @@ function paginaEntrada(mensagem = '') {
   .erro { color: #dc2626; font-size: 13px; margin-top: 10px; }
 </style></head><body>
 <form class="caixa" method="get" action="/">
-  <img src="/icones/xdpdf.svg" alt="">
-  <h1>XdPDF</h1>
+  <img src="/icones/meupdf.svg" alt="">
+  <h1>MeuPDF</h1>
   <p>Digite o código de 6 números que aparece em <b>Configurações → Usar no celular</b>, no computador. Ou aponte a câmera para o QR Code.</p>
   <input name="acesso" inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="one-time-code" autofocus required>
   <button type="submit">Entrar</button>
@@ -110,7 +110,7 @@ function portaria(req, res, next) {
   if (!servidor || req.socket.localPort !== porta()) return next();
   const codigo = codigoAtual();
   const esperado = ficha(codigo);
-  if (lerCookie(req, 'xdpdf_acesso') === esperado) return next();
+  if (lerCookie(req, 'meupdf_acesso') === esperado) return next();
 
   const ip = req.socket.remoteAddress || '';
   // arquivos visuais da tela de entrada
@@ -120,13 +120,13 @@ function portaria(req, res, next) {
     if (bloqueado(ip)) return res.status(429).type('html').send(paginaEntrada('Muitas tentativas. Espere 15 minutos.'));
     if (String(req.query.acesso).trim() === codigo) {
       tentativas.delete(ip);
-      res.setHeader('Set-Cookie', `xdpdf_acesso=${esperado}; Path=/; Max-Age=${30 * 86400}; HttpOnly; SameSite=Lax`);
+      res.setHeader('Set-Cookie', `meupdf_acesso=${esperado}; Path=/; Max-Age=${30 * 86400}; HttpOnly; SameSite=Lax`);
       return res.redirect('/');
     }
     errou(ip);
     return res.status(401).type('html').send(paginaEntrada('Código errado. Confira no computador.'));
   }
-  if (req.path.startsWith('/api/')) return res.status(401).json({ ok: false, erro: 'Acesso pelo celular não autorizado. Abra o XdPDF pelo QR Code de novo.' });
+  if (req.path.startsWith('/api/')) return res.status(401).json({ ok: false, erro: 'Acesso pelo celular não autorizado. Abra o MeuPDF pelo QR Code de novo.' });
   return res.type('html').send(paginaEntrada());
 }
 

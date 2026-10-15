@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * A "cara de app": abre o XdPDF numa janela própria do Edge/Chrome, sem barra
+ * A "cara de app": abre o MeuPDF numa janela própria do Edge/Chrome, sem barra
  * de endereço nem abas, com ícone próprio na barra de tarefas. Quando a janela
  * fecha, o servidor encerra sozinho (só no modo app).
  */
@@ -41,7 +41,7 @@ async function abrir(url, { modoApp = config.MODO_APP } = {}) {
   }
   const args = [
     `--app=${url}`,
-    // perfil próprio: a janela do XdPDF não se mistura com o navegador da pessoa
+    // perfil próprio: a janela do MeuPDF não se mistura com o navegador da pessoa
     `--user-data-dir=${config.pastas.navegador}`,
     '--window-size=1400,900',
     '--no-first-run',
@@ -71,7 +71,7 @@ function encerrarQuandoFechar(eventos) {
     clearTimeout(timer);
     timer = setTimeout(() => {
       if (eventos.quantos() === 0) {
-        console.log('  Janela fechada. Encerrando o XdPDF.');
+        console.log('  Janela fechada. Encerrando o MeuPDF.');
         process.exit(0);
       }
     }, ms);

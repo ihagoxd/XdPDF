@@ -1,8 +1,8 @@
 {
-  "name": "xdpdf",
-  "version": "1.0.0",
+  "name": "meupdf",
+  "version": "1.0.1",
   "private": true,
-  "description": "XdPDF — todas as ferramentas de PDF num app local. Nenhum arquivo sai do computador.",
+  "description": "MeuPDF — todas as ferramentas de PDF num app local. Nenhum arquivo sai do computador.",
   "main": "electron/main.js",
   "scripts": {
     "start": "node src/server.js",
@@ -20,13 +20,13 @@
   },
   "author": "Ihago Martins (https://www.instagram.com/ihagomartins1/)",
   "license": "MIT",
-  "homepage": "https://github.com/ihagoxd/XdPDF#readme",
+  "homepage": "https://github.com/ihagoxd/MeuPDF#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ihagoxd/XdPDF.git"
+    "url": "git+https://github.com/ihagoxd/MeuPDF.git"
   },
   "bugs": {
-    "url": "https://github.com/ihagoxd/XdPDF/issues"
+    "url": "https://github.com/ihagoxd/MeuPDF/issues"
   },
   "keywords": [
     "pdf",
@@ -54,8 +54,8 @@
     "tesseract.js": "^7.0.0"
   },
   "build": {
-    "appId": "com.ihagomartins.xdpdf",
-    "productName": "XdPDF",
+    "appId": "com.ihagomartins.meupdf",
+    "productName": "MeuPDF",
     "copyright": "Ihago Martins",
     "asar": false,
     "npmRebuild": false,
@@ -84,9 +84,9 @@
           ]
         }
       ],
-      "icon": "public/icones/xdpdf.ico",
-      "artifactName": "XdPDF-Instalador-${version}.${ext}",
-      "executableName": "XdPDF"
+      "icon": "public/icones/meupdf.ico",
+      "artifactName": "MeuPDF-Instalador-${version}.${ext}",
+      "executableName": "MeuPDF"
     },
     "nsis": {
       "oneClick": false,
@@ -94,10 +94,10 @@
       "allowToChangeInstallationDirectory": true,
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
-      "shortcutName": "XdPDF",
-      "uninstallDisplayName": "XdPDF",
-      "installerIcon": "public/icones/xdpdf.ico",
-      "uninstallerIcon": "public/icones/xdpdf.ico",
+      "shortcutName": "MeuPDF",
+      "uninstallDisplayName": "MeuPDF",
+      "installerIcon": "public/icones/meupdf.ico",
+      "uninstallerIcon": "public/icones/meupdf.ico",
       "installerLanguages": [
         "pt_BR"
       ],

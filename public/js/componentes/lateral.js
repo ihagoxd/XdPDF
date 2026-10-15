@@ -4,14 +4,14 @@ import { CATEGORIAS } from '../catalogo.js';
 import { ir, Credito } from './base.js';
 
 function lerTema() {
-  try { return localStorage.getItem('xdpdf-tema') || 'sistema'; } catch (_) { return 'sistema'; }
+  try { return localStorage.getItem('meupdf-tema') || 'sistema'; } catch (_) { return 'sistema'; }
 }
 
 function aplicarTema(tema) {
   const raiz = document.documentElement;
   if (tema === 'claro' || tema === 'escuro') raiz.setAttribute('data-tema', tema);
   else raiz.removeAttribute('data-tema');
-  try { localStorage.setItem('xdpdf-tema', tema); } catch (_) { /* sem armazenamento */ }
+  try { localStorage.setItem('meupdf-tema', tema); } catch (_) { /* sem armazenamento */ }
 }
 
 export function Lateral({ rota, aoBuscar, categoria, aoCategoria }) {
@@ -20,10 +20,10 @@ export function Lateral({ rota, aoBuscar, categoria, aoCategoria }) {
   const naInicio = rota.tela === 'inicio';
 
   return html`<aside class="lateral">
-    <a class="marca" href="#/" aria-label="XdPDF — início">
-      <img class="marca-logo" src="/icones/xdpdf.svg" alt="" />
+    <a class="marca" href="#/" aria-label="MeuPDF — início">
+      <img class="marca-logo" src="/icones/meupdf.svg" alt="" />
       <span>
-        <span class="marca-nome"><b>Xd</b>PDF</span>
+        <span class="marca-nome"><b>Meu</b>PDF</span>
         <span class="marca-sub">Ferramentas de PDF</span>
       </span>
     </a>

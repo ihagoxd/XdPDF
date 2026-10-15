@@ -17,14 +17,14 @@ const so = require('./so');
 const execFileAsync = promisify(execFile);
 
 // Perfil próprio: não briga com um LibreOffice aberto pela pessoa.
-const PERFIL = path.join(os.tmpdir(), 'xdpdf-libre');
+const PERFIL = path.join(os.tmpdir(), 'meupdf-libre');
 
 function disponivel() {
   return Boolean(so.acharLibreOffice());
 }
 
 function pastaTemporaria() {
-  const dir = path.join(os.tmpdir(), `xdpdf-libre-${crypto.randomBytes(6).toString('hex')}`);
+  const dir = path.join(os.tmpdir(), `meupdf-libre-${crypto.randomBytes(6).toString('hex')}`);
   fs.mkdirSync(dir, { recursive: true });
   return dir;
 }

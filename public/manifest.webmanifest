@@ -1,6 +1,6 @@
 {
-  "name": "XdPDF",
-  "short_name": "XdPDF",
+  "name": "MeuPDF",
+  "short_name": "MeuPDF",
   "description": "Todas as ferramentas de PDF num app local. Nenhum arquivo sai do computador.",
   "lang": "pt-BR",
   "start_url": "/",
@@ -10,10 +10,10 @@
   "background_color": "#0d0e12",
   "theme_color": "#e8383d",
   "icons": [
-    { "src": "/icones/xdpdf.svg", "sizes": "any", "type": "image/svg+xml" },
-    { "src": "/icones/xdpdf-192.png", "sizes": "192x192", "type": "image/png" },
-    { "src": "/icones/xdpdf-512.png", "sizes": "512x512", "type": "image/png" },
-    { "src": "/icones/xdpdf-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+    { "src": "/icones/meupdf.svg", "sizes": "any", "type": "image/svg+xml" },
+    { "src": "/icones/meupdf-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icones/meupdf-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/icones/meupdf-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
   ],
   "file_handlers": [
     {

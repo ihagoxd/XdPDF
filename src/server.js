@@ -16,9 +16,9 @@ const api = require('./rotas/api');
 
 /* ---------------- registro em arquivo no modo app ---------------- */
 
-// Sem janela de console (modo app ou instalador): o que der errado vai para dados/xdpdf.log.
-if ((config.MODO_APP || process.env.XDPDF_LOG === '1') && !process.stdout.isTTY) {
-  const log = fs.createWriteStream(path.join(config.pastas.dados, 'xdpdf.log'), { flags: 'a' });
+// Sem janela de console (modo app ou instalador): o que der errado vai para dados/meupdf.log.
+if ((config.MODO_APP || process.env.MEUPDF_LOG === '1') && !process.stdout.isTTY) {
+  const log = fs.createWriteStream(path.join(config.pastas.dados, 'meupdf.log'), { flags: 'a' });
   const escrever = (nivel) => (...partes) => {
     const linha = partes.map((p) => (p instanceof Error ? p.stack : typeof p === 'string' ? p : JSON.stringify(p))).join(' ');
     log.write(`[${new Date().toISOString()}] ${nivel} ${linha}\n`);
@@ -73,15 +73,15 @@ app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
  * @param {object} [op]
  * @param {boolean} [op.abrirJanela]  abre a janela (Edge em modo app ou o navegador)
  * @param {boolean} [op.modoApp]      encerra quando a última janela fechar
- * @param {boolean} [op.unicaInstancia] se já houver um XdPDF nesta porta, só abre a janela dele
+ * @param {boolean} [op.unicaInstancia] se já houver um MeuPDF nesta porta, só abre a janela dele
  * @returns {Promise<{url:string, servidor:http.Server}|null>} null quando outra instância assumiu
  */
 async function iniciar({ abrirJanela = config.ABRIR_JANELA, modoApp = config.MODO_APP, unicaInstancia = true } = {}) {
   const url = `http://${config.HOST === '0.0.0.0' ? '127.0.0.1' : config.HOST}:${config.PORTA}`;
 
-  // Já tem um XdPDF rodando? Então só abre outra janela dele.
+  // Já tem um MeuPDF rodando? Então só abre outra janela dele.
   if (unicaInstancia && await janela.jaRodando(url)) {
-    console.log(`  O XdPDF já está aberto em ${url}`);
+    console.log(`  O MeuPDF já está aberto em ${url}`);
     if (abrirJanela) await janela.abrir(url);
     setTimeout(() => process.exit(0), 1500);
     return null;
@@ -107,7 +107,7 @@ async function iniciar({ abrirJanela = config.ABRIR_JANELA, modoApp = config.MOD
   });
 
   console.log('');
-  console.log(`  XdPDF ${config.VERSAO} — ferramentas de PDF, tudo no seu computador`);
+  console.log(`  MeuPDF ${config.VERSAO} — ferramentas de PDF, tudo no seu computador`);
   console.log(`  Rodando em ${url}`);
   if (config.HOST !== '127.0.0.1') console.log(`  Aceitando conexões da rede (HOST=${config.HOST})`);
   console.log('  Ctrl+C para encerrar.');

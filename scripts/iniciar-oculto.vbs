@@ -1,5 +1,5 @@
-' Abre o XdPDF como aplicativo: o servidor roda escondido (sem janela preta)
-' e a janela do app abre sozinha. Fechando a janela, o XdPDF encerra.
+' Abre o MeuPDF como aplicativo: o servidor roda escondido (sem janela preta)
+' e a janela do app abre sozinha. Fechando a janela, o MeuPDF encerra.
 Option Explicit
 
 Dim fso, sh, pasta, codigo
@@ -12,14 +12,14 @@ sh.CurrentDirectory = pasta
 codigo = sh.Run("cmd /c where node >nul 2>nul", 0, True)
 If codigo <> 0 Then
   MsgBox "O Node.js nao esta instalado neste computador." & vbCrLf & vbCrLf & _
-         "Baixe a versao LTS em https://nodejs.org, instale e abra o XdPDF de novo.", _
-         vbExclamation, "XdPDF"
+         "Baixe a versao LTS em https://nodejs.org, instale e abra o MeuPDF de novo.", _
+         vbExclamation, "MeuPDF"
   WScript.Quit 1
 End If
 
 ' Primeira vez: a instalacao precisa mostrar o andamento.
 If Not fso.FolderExists(pasta & "\node_modules\express") Then
-  sh.Run """" & pasta & "\XdPDF.bat""", 1, False
+  sh.Run """" & pasta & "\MeuPDF.bat""", 1, False
   WScript.Quit 0
 End If
 

@@ -1,5 +1,5 @@
 /* ============================================================
-   XdPDF — visual do aplicativo
+   MeuPDF — visual do aplicativo
    ============================================================ */
 
 :root {
@@ -188,7 +188,7 @@ kbd {
 .abertura { height: 100%; display: grid; place-items: center; }
 .abertura-logo {
   width: 64px; height: 64px; border-radius: 18px;
-  background: url("/icones/xdpdf.svg") center / cover;
+  background: url("/icones/meupdf.svg") center / cover;
   animation: pulsar 1.2s ease-in-out infinite;
 }
 @keyframes pulsar { 50% { transform: scale(0.92); opacity: 0.7; } }

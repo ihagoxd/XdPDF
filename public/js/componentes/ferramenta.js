@@ -15,13 +15,13 @@ import { Resultado } from './resultado.js';
 
 export function guardarContinuacao(arquivos) {
   mudar((e) => { for (const a of arquivos) e.arquivos[a.id] = a; });
-  try { sessionStorage.setItem('xdpdf-continuar', JSON.stringify(arquivos.map((a) => a.id))); } catch (_) { /* ok */ }
+  try { sessionStorage.setItem('meupdf-continuar', JSON.stringify(arquivos.map((a) => a.id))); } catch (_) { /* ok */ }
 }
 
 function lerContinuacao() {
   try {
-    const ids = JSON.parse(sessionStorage.getItem('xdpdf-continuar') || '[]');
-    sessionStorage.removeItem('xdpdf-continuar');
+    const ids = JSON.parse(sessionStorage.getItem('meupdf-continuar') || '[]');
+    sessionStorage.removeItem('meupdf-continuar');
     return Array.isArray(ids) ? ids : [];
   } catch (_) {
     return [];

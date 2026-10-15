@@ -13,7 +13,7 @@ export function AreaComparar({ arquivos, aoRemover, aoAdicionar, aoSenha }) {
   </div>`;
   return html`<div>
     <p style="color:var(--texto-2);font-size:13px;margin-bottom:14px">
-      O primeiro arquivo é a versão anterior; o segundo, a nova. O XdPDF compara o texto linha por linha e mostra, palavra por palavra, o que mudou.
+      O primeiro arquivo é a versão anterior; o segundo, a nova. O MeuPDF compara o texto linha por linha e mostra, palavra por palavra, o que mudou.
     </p>
     <div class="grade-arquivos" style="grid-template-columns:repeat(2,minmax(0,1fr))">
       ${vaga('Versão anterior', a, 1)}

@@ -172,9 +172,9 @@ router.get('/resultados/zip', seguro(async (req, res) => {
   const itens = ids.map((id) => armazem.obterResultado(id)).filter(Boolean);
   if (!itens.length) return res.status(404).type('text/plain').send('Nada para baixar.');
   const nomes = nomesUnicos(itens.map((r) => r.nome));
-  const nomeZip = `${nomeSeguro(String(req.query.nome || ''), 'XdPDF').replace(/\.zip$/i, '')}.zip`;
+  const nomeZip = `${nomeSeguro(String(req.query.nome || ''), 'MeuPDF').replace(/\.zip$/i, '')}.zip`;
   res.setHeader('Content-Type', 'application/zip');
-  res.setHeader('Content-Disposition', `attachment; filename="xdpdf.zip"; filename*=UTF-8''${encodeURIComponent(nomeZip)}`);
+  res.setHeader('Content-Disposition', `attachment; filename="meupdf.zip"; filename*=UTF-8''${encodeURIComponent(nomeZip)}`);
   await escreverZip(res, itens.map((r, i) => ({ nome: nomes[i], caminho: r.caminho })));
   res.end();
 }));

@@ -38,7 +38,7 @@ function UsarNoCelular() {
       <span class="texto"><strong>Permitir acesso pelo celular</strong><small>O celular precisa estar na mesma rede Wi-Fi deste computador.</small></span>
     </label>
     ${rede.ativo && rede.qr && html`<div class="celular-acesso">
-      <div class="qr" dangerouslySetInnerHTML=${{ __html: rede.qr }} aria-label="QR Code para abrir o XdPDF no celular"></div>
+      <div class="qr" dangerouslySetInnerHTML=${{ __html: rede.qr }} aria-label="QR Code para abrir o MeuPDF no celular"></div>
       <div class="celular-texto">
         <strong>Aponte a câmera do celular para o código</strong>
         <span>Ou digite no navegador do celular:</span>
@@ -114,7 +114,7 @@ export function Configuracoes() {
 
       <div class="painel config-cartao">
         <h3>Sobre</h3>
-        <p style="color:var(--texto-2)">XdPDF ${sistema ? sistema.versao : ''} — todas as operações acontecem neste computador. Os arquivos enviados são apagados em até 12 horas e os resultados em 7 dias.</p>
+        <p style="color:var(--texto-2)">MeuPDF ${sistema ? sistema.versao : ''} — todas as operações acontecem neste computador. Os arquivos enviados são apagados em até 12 horas e os resultados em 7 dias.</p>
         <p style="color:var(--texto-2)">Atalhos: <kbd>Ctrl</kbd> + <kbd>K</kbd> procura ferramentas · <kbd>Ctrl</kbd> + <kbd>O</kbd> adiciona arquivos · <kbd>Esc</kbd> fecha janelas.</p>
         <${Credito} classe="credito-cartao" />
       </div>

@@ -74,7 +74,7 @@ export function Inicio({ categoria, aoCategoria }) {
 
   const mostrandoTudo = !busca && !categoria;
   const continuando = (() => {
-    try { return JSON.parse(sessionStorage.getItem('xdpdf-continuar') || '[]').length; } catch (_) { return 0; }
+    try { return JSON.parse(sessionStorage.getItem('meupdf-continuar') || '[]').length; } catch (_) { return 0; }
   })();
   const [, recarregar] = useState(0);
   const favs = favoritas.map((id) => POR_ID[id]).filter(Boolean);
@@ -100,7 +100,7 @@ export function Inicio({ categoria, aoCategoria }) {
     ${continuando > 0 && html`<div class="faixa-continuar" role="status">
       <${Icone} nome="seta" tam=${18} />
       <span><strong>Escolha a próxima ferramenta.</strong> ${continuando === 1 ? 'O arquivo já vai estar lá' : `Os ${continuando} arquivos já vão estar lá`}.</span>
-      <button class="btn btn-p" onClick=${() => { sessionStorage.removeItem('xdpdf-continuar'); recarregar((n) => n + 1); }}>Cancelar</button>
+      <button class="btn btn-p" onClick=${() => { sessionStorage.removeItem('meupdf-continuar'); recarregar((n) => n + 1); }}>Cancelar</button>
     </div>`}
 
     <div class="filtros" role="tablist">

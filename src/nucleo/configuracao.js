@@ -9,7 +9,7 @@ const path = require('path');
 const config = require('../config');
 
 const PADRAO = {
-  pastaSaida: path.join(config.pastaDownloadsPadrao(), 'XdPDF'),
+  pastaSaida: path.join(config.pastaDownloadsPadrao(), 'MeuPDF'),
   abrirPastaAoSalvar: true,
   idiomaOcr: 'por',
   acessoRede: false,

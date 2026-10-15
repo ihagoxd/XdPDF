@@ -110,8 +110,8 @@ async function salvar(doc, { objetosCompactos = true } = {}) {
 /** Documento novo, sem o pdf-lib se anunciar como autor. */
 async function novo() {
   const doc = await PDFDocument.create({ updateMetadata: false });
-  doc.setProducer('XdPDF');
-  doc.setCreator('XdPDF');
+  doc.setProducer('MeuPDF');
+  doc.setCreator('MeuPDF');
   const agora = new Date();
   doc.setCreationDate(agora);
   doc.setModificationDate(agora);

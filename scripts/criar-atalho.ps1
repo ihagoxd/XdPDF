@@ -1,10 +1,10 @@
-# Cria os atalhos do XdPDF na área de trabalho e no menu Iniciar,
+# Cria os atalhos do MeuPDF na área de trabalho e no menu Iniciar,
 # com o ícone do app. Pode rodar de novo à vontade: só substitui.
 $ErrorActionPreference = 'Stop'
 $raiz = Split-Path -Parent $PSScriptRoot
 $alvo = Join-Path $env:WINDIR 'System32\wscript.exe'
 $vbs = Join-Path $raiz 'scripts\iniciar-oculto.vbs'
-$icone = Join-Path $raiz 'public\icones\xdpdf.ico'
+$icone = Join-Path $raiz 'public\icones\meupdf.ico'
 
 $shell = New-Object -ComObject WScript.Shell
 $destinos = @(
@@ -14,12 +14,12 @@ $destinos = @(
 
 foreach ($pasta in $destinos) {
   if (-not (Test-Path -LiteralPath $pasta)) { continue }
-  $lnk = $shell.CreateShortcut((Join-Path $pasta 'XdPDF.lnk'))
+  $lnk = $shell.CreateShortcut((Join-Path $pasta 'MeuPDF.lnk'))
   $lnk.TargetPath = $alvo
   $lnk.Arguments = '"' + $vbs + '"'
   $lnk.WorkingDirectory = $raiz
   $lnk.IconLocation = "$icone,0"
-  $lnk.Description = 'XdPDF - ferramentas de PDF no seu computador'
+  $lnk.Description = 'MeuPDF - ferramentas de PDF no seu computador'
   $lnk.Save()
   Write-Host "  Atalho criado: $($lnk.FullName)"
 }

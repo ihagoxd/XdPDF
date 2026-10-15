@@ -10,8 +10,8 @@ const os = require('os');
 const path = require('path');
 
 // tudo que os testes gravam vai para uma pasta temporária própria
-const DADOS = fs.mkdtempSync(path.join(os.tmpdir(), 'xdpdf-teste-'));
-process.env.XDPDF_DADOS = DADOS;
+const DADOS = fs.mkdtempSync(path.join(os.tmpdir(), 'meupdf-teste-'));
+process.env.MEUPDF_DADOS = DADOS;
 
 const { PDFDocument, StandardFonts, rgb, degrees, PDFName, PDFString } = require('@cantoo/pdf-lib');
 const sharp = require('sharp');

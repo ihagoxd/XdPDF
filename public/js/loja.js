@@ -110,7 +110,7 @@ export function enviarArquivos(lista, aoProgredir) {
         reject(new Error(d.erro || 'Não foi possível enviar os arquivos.'));
       }
     };
-    xhr.onerror = () => reject(new Error('A conexão com o XdPDF caiu durante o envio.'));
+    xhr.onerror = () => reject(new Error('A conexão com o MeuPDF caiu durante o envio.'));
     xhr.send(fd);
   });
 }
@@ -134,7 +134,7 @@ export function conectarEventos() {
     // o servidor reiniciou: os arquivos enviados antes não existem mais lá
     if (inicioServidor && inicio !== inicioServidor && Object.keys(estado.arquivos).length) {
       mudar((e) => { e.arquivos = {}; });
-      avisar('O XdPDF foi reiniciado. Adicione os arquivos de novo.', 'aviso', { duracao: 9000 });
+      avisar('O MeuPDF foi reiniciado. Adicione os arquivos de novo.', 'aviso', { duracao: 9000 });
     }
     inicioServidor = inicio;
     mudar((e) => { e.conectado = true; });

@@ -1,11 +1,11 @@
 'use strict';
 
 /**
- * XdPDF como aplicativo de Windows (Electron).
+ * MeuPDF como aplicativo de Windows (Electron).
  *
- * O mesmo servidor do XdPDF roda aqui dentro, sem precisar do Node.js
+ * O mesmo servidor do MeuPDF roda aqui dentro, sem precisar do Node.js
  * instalado, e a interface abre numa janela própria. Os dados ficam em
- * %APPDATA%\XdPDF\dados, separados da pasta do programa.
+ * %APPDATA%\MeuPDF\dados, separados da pasta do programa.
  */
 
 const { app, BrowserWindow, Menu, shell, nativeTheme, session, dialog, screen } = require('electron');
@@ -14,9 +14,9 @@ const net = require('net');
 const path = require('path');
 
 const RAIZ = path.join(__dirname, '..');
-const ICONE = path.join(RAIZ, 'public', 'icones', 'xdpdf.ico');
+const ICONE = path.join(RAIZ, 'public', 'icones', 'meupdf.ico');
 
-app.setAppUserModelId('com.ihagomartins.xdpdf');
+app.setAppUserModelId('com.ihagomartins.meupdf');
 
 // Uma janela só: abrir o atalho de novo traz a que já está aberta.
 if (!app.requestSingleInstanceLock()) {
@@ -81,7 +81,7 @@ function criarJanela() {
     minWidth: 380,
     minHeight: 520,
     show: false,
-    title: 'XdPDF',
+    title: 'MeuPDF',
     icon: ICONE,
     backgroundColor: nativeTheme.shouldUseDarkColors ? '#0d0e12' : '#f3f4f8',
     autoHideMenuBar: true,
@@ -120,7 +120,7 @@ function criarJanela() {
 function configurarDownloads() {
   session.defaultSession.on('will-download', (evento, item) => {
     item.setSaveDialogOptions({
-      title: 'Salvar arquivo do XdPDF',
+      title: 'Salvar arquivo do MeuPDF',
       defaultPath: path.join(app.getPath('downloads'), item.getFilename()),
       buttonLabel: 'Salvar',
     });
@@ -143,15 +143,15 @@ app.whenReady().then(async () => {
   const porta = await escolherPorta();
   process.env.PORT = String(porta);
   process.env.ABRIR = '0';
-  process.env.XDPDF_LOG = '1';
-  process.env.XDPDF_DADOS = path.join(app.getPath('userData'), 'dados');
+  process.env.MEUPDF_LOG = '1';
+  process.env.MEUPDF_DADOS = path.join(app.getPath('userData'), 'dados');
 
   try {
     const { iniciar } = require(path.join(RAIZ, 'src', 'server.js'));
     const r = await iniciar({ abrirJanela: false, modoApp: false, unicaInstancia: false });
     urlBase = r.url;
   } catch (err) {
-    dialog.showErrorBox('XdPDF', `Não foi possível iniciar o XdPDF.\n\n${err && err.message ? err.message : err}`);
+    dialog.showErrorBox('MeuPDF', `Não foi possível iniciar o MeuPDF.\n\n${err && err.message ? err.message : err}`);
     app.quit();
     return;
   }

@@ -68,7 +68,7 @@ export const INSTAGRAM = 'https://www.instagram.com/ihagomartins1/';
 export function Credito({ classe = '' }) {
   const clicar = (e) => {
     const s = estadoGlobal.sistema;
-    // na janela do app o link abriria no perfil isolado do XdPDF; vai para o navegador de sempre
+    // na janela do app o link abriria no perfil isolado do MeuPDF; vai para o navegador de sempre
     if (s && s.modoApp && s.local) { e.preventDefault(); api.post('/abrir-instagram').catch(() => window.open(INSTAGRAM, '_blank')); }
   };
   return html`<a class=${cx('credito', classe)} href=${INSTAGRAM} target="_blank" rel="noopener noreferrer"

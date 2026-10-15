@@ -278,7 +278,7 @@ async function relatorioPdf(nomeA, nomeB, resumo, vista) {
   // rodapé com numeração
   const total = doc.getPageCount();
   doc.getPages().forEach((p, i) => {
-    p.drawText(`XdPDF · página ${i + 1} de ${total}`, { x: M, y: 20, size: 8, font: fonte, color: rgb(0.6, 0.62, 0.66) });
+    p.drawText(`MeuPDF · página ${i + 1} de ${total}`, { x: M, y: 20, size: 8, font: fonte, color: rgb(0.6, 0.62, 0.66) });
   });
   return { bytes: await pdf.salvar(doc), paginas: total };
 }

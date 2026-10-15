@@ -69,11 +69,11 @@ export function dataRelativa(ms) {
 export const preferencias = {
   ler(chave, padrao) {
     try {
-      const v = localStorage.getItem(`xdpdf-${chave}`);
+      const v = localStorage.getItem(`meupdf-${chave}`);
       return v == null ? padrao : JSON.parse(v);
     } catch (_) { return padrao; }
   },
   gravar(chave, valor) {
-    try { localStorage.setItem(`xdpdf-${chave}`, JSON.stringify(valor)); } catch (_) { /* sem armazenamento */ }
+    try { localStorage.setItem(`meupdf-${chave}`, JSON.stringify(valor)); } catch (_) { /* sem armazenamento */ }
   },
 };

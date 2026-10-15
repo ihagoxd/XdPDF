@@ -3,21 +3,21 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>XdPDF</title>
+  <title>MeuPDF</title>
   <meta name="description" content="Todas as ferramentas de PDF num app local. Nenhum arquivo sai do computador.">
   <meta name="color-scheme" content="light dark">
   <meta name="theme-color" content="#f3f4f8" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#0d0e12" media="(prefers-color-scheme: dark)">
   <link rel="manifest" href="/manifest.webmanifest">
-  <link rel="icon" href="/icones/xdpdf.svg" type="image/svg+xml">
-  <link rel="icon" href="/icones/xdpdf-192.png" sizes="192x192" type="image/png">
-  <link rel="apple-touch-icon" href="/icones/xdpdf-192.png">
+  <link rel="icon" href="/icones/meupdf.svg" type="image/svg+xml">
+  <link rel="icon" href="/icones/meupdf-192.png" sizes="192x192" type="image/png">
+  <link rel="apple-touch-icon" href="/icones/meupdf-192.png">
   <link rel="stylesheet" href="/css/app.css">
   <script>
     // Aplica o tema antes de pintar a tela, para não piscar.
     (function () {
       var tema = 'sistema';
-      try { tema = localStorage.getItem('xdpdf-tema') || 'sistema'; } catch (e) {}
+      try { tema = localStorage.getItem('meupdf-tema') || 'sistema'; } catch (e) {}
       if (tema === 'claro' || tema === 'escuro') document.documentElement.setAttribute('data-tema', tema);
     })();
   </script>
@@ -38,7 +38,7 @@
       <div class="abertura-logo"></div>
     </div>
   </div>
-  <noscript>O XdPDF precisa de JavaScript ligado.</noscript>
+  <noscript>O MeuPDF precisa de JavaScript ligado.</noscript>
   <script type="module" src="/js/main.js"></script>
 </body>
 </html>

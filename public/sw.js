@@ -1,4 +1,4 @@
-/* Service worker mínimo: permite instalar o XdPDF como aplicativo.
+/* Service worker mínimo: permite instalar o MeuPDF como aplicativo.
    Tudo continua vindo do servidor local (sem cache), para que uma
    atualização apareça na hora. */
 self.addEventListener('install', () => self.skipWaiting());

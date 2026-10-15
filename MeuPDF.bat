@@ -1,13 +1,13 @@
 @echo off
 chcp 65001 >nul
-title XdPDF
+title MeuPDF
 cd /d "%~dp0"
 
 where node >nul 2>nul
 if errorlevel 1 (
   echo.
   echo   [ERRO] O Node.js nao esta instalado neste computador.
-  echo   Baixe a versao LTS em https://nodejs.org, instale e abra o XdPDF de novo.
+  echo   Baixe a versao LTS em https://nodejs.org, instale e abra o MeuPDF de novo.
   echo.
   pause
   exit /b 1
@@ -16,7 +16,7 @@ if errorlevel 1 (
 if not exist "node_modules\express" (
   echo.
   echo   ============================================
-  echo     XdPDF - primeira vez neste computador
+  echo     MeuPDF - primeira vez neste computador
   echo   ============================================
   echo.
   echo   Instalando os componentes. Leva um ou dois minutos e so acontece agora.
@@ -29,7 +29,7 @@ if not exist "node_modules\express" (
     exit /b 1
   )
   echo.
-  echo   Criando o atalho do XdPDF na area de trabalho...
+  echo   Criando o atalho do MeuPDF na area de trabalho...
   powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0scripts\criar-atalho.ps1"
   echo.
 )

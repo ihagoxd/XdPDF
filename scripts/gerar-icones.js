@@ -10,7 +10,7 @@ const path = require('path');
 const sharp = require('sharp');
 
 const PASTA = path.join(__dirname, '..', 'public', 'icones');
-const svg = fs.readFileSync(path.join(PASTA, 'xdpdf.svg'));
+const svg = fs.readFileSync(path.join(PASTA, 'meupdf.svg'));
 
 async function png(tamanho) {
   return sharp(svg, { density: Math.max(72, Math.round((72 * tamanho) / 128)) })
@@ -44,11 +44,11 @@ function ico(imagens) {
 }
 
 (async () => {
-  fs.writeFileSync(path.join(PASTA, 'xdpdf-192.png'), await png(192));
-  fs.writeFileSync(path.join(PASTA, 'xdpdf-512.png'), await png(512));
+  fs.writeFileSync(path.join(PASTA, 'meupdf-192.png'), await png(192));
+  fs.writeFileSync(path.join(PASTA, 'meupdf-512.png'), await png(512));
   const tamanhos = [16, 24, 32, 48, 64, 128, 256];
   const imagens = [];
   for (const t of tamanhos) imagens.push({ tamanho: t, dados: await png(t) });
-  fs.writeFileSync(path.join(PASTA, 'xdpdf.ico'), ico(imagens));
+  fs.writeFileSync(path.join(PASTA, 'meupdf.ico'), ico(imagens));
   console.log('Ícones gerados em public/icones');
 })();

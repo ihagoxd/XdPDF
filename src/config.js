@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * Caminhos e opções do XdPDF. Tudo que depende do ambiente passa por aqui.
+ * Caminhos e opções do MeuPDF. Tudo que depende do ambiente passa por aqui.
  */
 
 const fs = require('fs');
@@ -11,8 +11,8 @@ const path = require('path');
 const RAIZ = path.join(__dirname, '..');
 const argumentos = process.argv.slice(2);
 
-const DIR_DADOS = process.env.XDPDF_DADOS
-  ? path.resolve(process.env.XDPDF_DADOS)
+const DIR_DADOS = process.env.MEUPDF_DADOS
+  ? path.resolve(process.env.MEUPDF_DADOS)
   : path.join(RAIZ, 'dados');
 
 const pastas = {
@@ -39,7 +39,7 @@ module.exports = {
   PORTA: Number(process.env.PORT) || 3020,
   // Só a própria máquina enxerga o app. Para servir na rede, HOST=0.0.0.0.
   HOST: process.env.HOST || '127.0.0.1',
-  MODO_APP: argumentos.includes('--app') || process.env.XDPDF_APP === '1',
+  MODO_APP: argumentos.includes('--app') || process.env.MEUPDF_APP === '1',
   ABRIR_JANELA: process.env.ABRIR !== '0',
   pastas,
   vendor: {
