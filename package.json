@@ -19,7 +19,27 @@
     "node": ">=20"
   },
   "author": "Ihago Martins (https://www.instagram.com/ihagomartins1/)",
-  "license": "UNLICENSED",
+  "license": "MIT",
+  "homepage": "https://github.com/ihagoxd/XdPDF#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ihagoxd/XdPDF.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ihagoxd/XdPDF/issues"
+  },
+  "keywords": [
+    "pdf",
+    "ocr",
+    "juntar-pdf",
+    "comprimir-pdf",
+    "assinar-pdf",
+    "tarjar",
+    "lgpd",
+    "electron",
+    "windows",
+    "pt-br"
+  ],
   "dependencies": {
     "@cantoo/fontkit": "^2.0.12",
     "@cantoo/pdf-lib": "^2.8.1",

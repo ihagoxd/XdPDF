@@ -1,107 +1,115 @@
+<div align="center">
+
+<img src="public/icones/xdpdf-192.png" width="88" alt="XdPDF">
+
 # XdPDF
 
-Todas as ferramentas de PDF do dia a dia — juntar, dividir, comprimir, converter,
-OCR, assinar, tarjar — num aplicativo que roda **no próprio computador**.
-Nenhum arquivo é enviado para a internet.
+**Todas as ferramentas de PDF num app para Windows — sem mandar nada para a internet.**
+
+31 ferramentas — juntar, dividir, comprimir, converter, OCR, assinar, tarjar e
+muito mais — rodando no seu computador. Funciona também no celular.
+
+[**⬇ Baixar para Windows**](https://github.com/ihagoxd/XdPDF/releases/latest)
+&nbsp;·&nbsp; [Ferramentas](#ferramentas) &nbsp;·&nbsp; [Usar no celular](#usar-no-celular) &nbsp;·&nbsp; [Desenvolvimento](#desenvolvimento)
+
+[![Versão](https://img.shields.io/github/v/release/ihagoxd/XdPDF?label=vers%C3%A3o&color=e8383d)](https://github.com/ihagoxd/XdPDF/releases/latest)
+[![Testes](https://github.com/ihagoxd/XdPDF/actions/workflows/testes.yml/badge.svg)](https://github.com/ihagoxd/XdPDF/actions/workflows/testes.yml)
+[![Licença MIT](https://img.shields.io/badge/licen%C3%A7a-MIT-3a5bc7)](LICENSE)
+![Windows 10 e 11](https://img.shields.io/badge/Windows-10%20%7C%2011-0588f0)
+
+</div>
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/inicio-escuro.png">
+  <img src="docs/inicio-claro.png" alt="Tela inicial do XdPDF com as ferramentas organizadas por categoria">
+</picture>
 
 ## Instalar
 
-**Jeito mais fácil:** rode o `XdPDF-Instalador-1.0.0.exe`. Ele instala o XdPDF
-para o seu usuário (não pede senha de administrador), cria os atalhos na área de
-trabalho e no menu Iniciar e aparece em "Adicionar ou remover programas" para
-desinstalar. **Não precisa do Node.js.** Os seus arquivos ficam em
-`%APPDATA%\XdPDF`.
+1. Baixe o instalador (`XdPDF-Instalador-<versão>.exe`) na [página de versões](https://github.com/ihagoxd/XdPDF/releases/latest).
+2. Rode o instalador. Ele instala só para o seu usuário (não pede senha de
+   administrador) e cria os atalhos na área de trabalho e no menu Iniciar.
+3. Pronto: o XdPDF abre numa janela própria. Para desinstalar, use
+   "Adicionar ou remover programas".
 
-Como o instalador não tem assinatura digital paga, o Windows pode mostrar
-"O Windows protegeu o computador" na primeira vez: clique em **Mais
-informações → Executar assim mesmo**.
+> O instalador não tem assinatura digital paga, então na primeira vez o Windows
+> pode mostrar "O Windows protegeu o computador". Clique em **Mais informações →
+> Executar assim mesmo**.
 
-Para gerar o instalador a partir do código: `npm install` e depois
-`npm run instalador` — o arquivo sai em `dist/`.
+O app instalado já traz tudo o que precisa, inclusive os dados do OCR. Algumas
+conversões usam programas que talvez já estejam no computador:
 
-**Sem instalar (pela pasta do código):** dê dois cliques em **`XdPDF.bat`**. Na
-primeira vez ele instala os componentes e cria o atalho **XdPDF**; depois, o
-atalho abre o app numa janela própria do Edge. Esse jeito precisa do Node.js.
-
-### Requisitos
-
-| O quê | Para quê |
+| Programa | Para quê |
 |---|---|
-| Windows 10 ou 11 | — |
-| [Node.js](https://nodejs.org) LTS (20 ou mais novo) | só para rodar pela pasta do código (o instalador já traz tudo) |
-| Microsoft Edge ou Google Chrome | a janela do app e o "Site para PDF" (o Edge já vem no Windows) |
-| Microsoft Office **ou** LibreOffice | só para Word/Excel/PowerPoint → PDF |
-| Ghostscript | opcional: compressão extra e PDF/A mais rigoroso |
+| Microsoft Office **ou** LibreOffice | Word, Excel e PowerPoint → PDF |
+| Microsoft Edge ou Google Chrome | Site para PDF (o Edge já vem no Windows) |
+| Ghostscript (opcional) | compressão extra e PDF/A mais rigoroso |
 
-A tela **Configurações** mostra o que foi encontrado nesta máquina. Ferramentas
-que dependem de algo que falta aparecem marcadas como indisponíveis, em vez de
-falhar depois.
+A tela **Configurações** mostra o que foi encontrado. Ferramentas que dependem de
+algo que falta aparecem marcadas como indisponíveis, em vez de falhar depois.
 
 ## Ferramentas
 
-**Organizar** — Juntar (com marcadores por documento e opção de frente e verso),
-Dividir (por intervalos, a cada N páginas, página por página ou **por tamanho
-máximo**, para limites de envio como o do PJe), Remover páginas, Extrair
-páginas, Organizar (arrastar, girar, duplicar, apagar, páginas em branco,
-misturando arquivos) e Girar.
+| | |
+|---|---|
+| **Organizar** | Juntar (com marcadores por documento e opção de frente e verso) · Dividir (por intervalos, a cada N páginas, página por página ou **por tamanho máximo**, para limites de envio como o do PJe) · Remover páginas · Extrair páginas · Organizar (arrastar, girar, duplicar, apagar e inserir páginas em branco, misturando arquivos) · Girar |
+| **Otimizar** | Comprimir · OCR em português e inglês · Reparar |
+| **Converter para PDF** | Imagens (JPG, PNG, TIFF de várias páginas, WebP, GIF, BMP) · Word · Excel · PowerPoint · Páginas da internet |
+| **Converter de PDF** | JPG/PNG (páginas inteiras ou só as imagens de dentro) · Word · Excel · PowerPoint · Texto · PDF/A |
+| **Editar** | Editar (texto, imagem, caixa, destaque, cobrir com branco) · Assinar · Numerar (inclusive `Fls. 12` e pulando a capa) · Marca d'água · Recortar · Propriedades · Achatar formulários e anotações |
+| **Segurança** | Proteger com senha (AES-256) · Desbloquear · Tarjar · Comparar duas versões |
 
-**Otimizar** — Comprimir (recomprime só as imagens: o texto continua
-selecionável), OCR em português e inglês (o PDF continua idêntico e passa a ser
-pesquisável) e Reparar.
+Ao terminar, dá para baixar (vários arquivos saem num ZIP), salvar direto numa
+pasta, abrir no programa padrão ou **continuar com outra ferramenta** sem baixar
+e enviar de novo.
 
-**Converter para PDF** — Imagens (JPG, PNG, TIFF de várias páginas, WebP, GIF,
-BMP; fotos de celular já saem na posição certa), Word, Excel, PowerPoint e
-páginas da internet.
+<img src="docs/organizar.png" alt="Organizar PDF: miniaturas das páginas de dois arquivos para arrastar, girar e apagar">
 
-**Converter de PDF** — JPG/PNG (páginas inteiras ou só as imagens de dentro),
-Word (parágrafos, títulos, negrito e tabelas), Excel (colunas reconstruídas;
-`R$ 1.234,56` vira número e `01/02/2025` vira data, mas número de processo
-continua texto), PowerPoint, texto e PDF/A.
+### Destaques
 
-**Editar** — Editar (texto, imagem, caixa, destaque, cobrir com branco),
-Assinar (desenhar, digitar em letra cursiva ou usar a foto da assinatura no
-papel; guardar para reutilizar; rubricar todas as páginas), Numerar (inclusive
-`Fls. 12` e pulando a capa), Marca d'água (texto ou imagem, mosaico, por cima ou
-por baixo), Recortar, Propriedades (ou apagar todos os metadados) e Achatar
-formulários e anotações.
+- **Comprimir sem estragar o texto** — só as imagens são recomprimidas; o texto
+  continua selecionável e o arquivo nunca sai maior que o original.
+- **OCR que não mexe na página** — o texto reconhecido entra como uma camada
+  invisível sobre o documento original: dá para buscar e copiar, e a aparência
+  fica idêntica.
+- **Tarja de verdade (LGPD)** — encontra CPF, CNPJ, RG, e-mail, telefone, CEP e
+  termos; o que fica embaixo da tarja é apagado do arquivo, não só coberto.
+- **Assinatura do seu jeito** — desenhe, digite em letra cursiva ou use a foto da
+  assinatura no papel (o fundo some sozinho); guarde para reutilizar e rubrique
+  todas as páginas de uma vez.
+- **PDFs travados** — documentos com restrição de impressão ou cópia são
+  liberados na entrada, então todas as ferramentas funcionam com eles.
+- **Excel que entende o Brasil** — `R$ 1.234,56` vira número, `01/02/2025` vira
+  data e número de processo continua texto.
+- **Comparar versões** — mostra o que mudou palavra por palavra e gera um
+  relatório em PDF.
 
-**Segurança** — Proteger com senha (AES-256), Desbloquear, **Tarjar**
-(encontra CPF, CNPJ, RG, e-mail, telefone, CEP e termos; o conteúdo embaixo da
-tarja é apagado de verdade, não só coberto) e Comparar duas versões, com o que
-mudou palavra por palavra e um relatório em PDF.
-
-Ao terminar, dá para baixar (vários arquivos saem num ZIP), **salvar direto numa
-pasta**, abrir no programa padrão ou **continuar com outra ferramenta** sem
-baixar e enviar de novo.
-
-## Privacidade
-
-- Tudo é processado aqui. O único acesso à internet é o do "Site para PDF",
-  para carregar a página pedida.
-- Os arquivos enviados ficam em `dados/entrada` e são apagados em até 12 horas
-  (e sempre que o XdPDF reinicia). Os resultados ficam em `dados/saida` por
-  7 dias e aparecem em **Arquivos recentes**.
-- Por padrão o XdPDF só aceita conexões do próprio computador.
+<img src="docs/tarjar.png" alt="Tarjar PDF: CPFs encontrados automaticamente e cobertos nas três páginas">
 
 ## Usar no celular
 
 Em **Configurações → Usar no celular**, ligue "Permitir acesso pelo celular".
-Aparece um **QR Code**: aponte a câmera do celular (mesma rede Wi-Fi) e o
+Aparece um **QR Code**: aponte a câmera do celular (na mesma rede Wi-Fi) e o
 XdPDF abre já liberado. Também dá para digitar o endereço e o código de 6
 números que aparecem ali.
 
-- Só entra quem tem o código; depois de várias tentativas erradas o aparelho
+- Só entra quem tem o código. Depois de várias tentativas erradas, o aparelho
   fica bloqueado por 15 minutos. "Gerar outro código" desconecta todo mundo.
 - Pelo celular dá para usar todas as ferramentas e baixar os resultados; mudar
   configurações e abrir pastas do computador, não.
-- Na primeira vez, o Windows pode perguntar se o Node.js pode usar a rede:
+- Na primeira vez, o Windows pode perguntar se o XdPDF pode usar a rede:
   escolha **Redes privadas**.
-- A interface foi feita para o celular: ferramentas em lista, botão de ação
-  fixo embaixo, arrastar segurando o dedo e "Tirar foto do documento" no
-  Imagem para PDF.
 
-Para servidores (Linux, rede interna confiável), dá para abrir a porta
-principal para todos com `HOST=0.0.0.0`; nesse caso não há código de acesso.
+<img src="docs/celular.png" alt="XdPDF no celular: lista de ferramentas, arquivos para juntar e resultado pronto">
+
+## Privacidade
+
+- Tudo é processado no próprio computador. O único acesso à internet é o do
+  "Site para PDF", para carregar a página pedida.
+- Os arquivos enviados são apagados em até 12 horas (e sempre que o XdPDF
+  reinicia). Os resultados ficam 7 dias em **Arquivos recentes**.
+- No app instalado, tudo fica em `%APPDATA%\XdPDF`.
+- Por padrão o XdPDF só aceita conexões do próprio computador.
 
 ## Atalhos
 
@@ -113,64 +121,56 @@ principal para todos com `HOST=0.0.0.0`; nesse caso não há código de acesso.
 | `Esc` | fechar janelas |
 | `Delete`, `Ctrl` + `D`, setas | no editor: apagar, duplicar e mover o item selecionado |
 
-## O que foi corrigido em relação às ferramentas do MendesPDF
-
-- **Liberar PDF gerava páginas em branco**, e numerar, marca d'água e assinar
-  não apareciam em PDFs com restrição: o conteúdo era copiado ainda
-  criptografado. Agora todo PDF travado é aberto e limpo na entrada.
-- **Comprimir transformava as páginas em imagem**: o texto deixava de ser
-  selecionável e PDFs de texto chegavam a aumentar. Agora só as imagens são
-  recomprimidas e o arquivo nunca sai maior que o original.
-- **OCR** substituía a página por um JPEG (perda de qualidade) e dependia do
-  `worker.min.js` do tesseract.js, que não vem numa instalação nova da versão 7
-  (um `npm install` limpo quebrava o OCR). Agora roda no servidor e só
-  acrescenta a camada de texto invisível sobre a página original.
-- **Assinar** não deixava escolher onde colocar a assinatura (posição fixa) e
-  ignorava páginas giradas; numeração e marca d'água também.
-- **Organizar** não reordenava pela tela (o seletor ordenava as páginas).
-- Arquivos de uma ferramenta "vazavam" para a próxima, e as ferramentas de um
-  arquivo só usavam o primeiro da lista sem avisar.
-- **Baixar todos** disparava vários downloads (o navegador bloqueia); agora é um
-  ZIP.
-- Imagem para PDF com uma imagem só e "juntar" dava erro; fotos de celular
-  saíam deitadas (EXIF).
-- Office travado em diálogo podia deixar Word/Excel abertos para sempre; agora
-  os processos que o XdPDF abriu são encerrados se algo travar.
-- O servidor aceitava conexões de toda a rede, com navegação livre pelas pastas
-  do computador.
-
 ## Desenvolvimento
 
+Precisa do [Node.js](https://nodejs.org) 22 ou mais novo.
+
 ```bash
-npm install      # instala (e baixa os dados do OCR)
-npm start        # servidor em http://127.0.0.1:3020 + navegador
-npm run app      # como o atalho: janela própria, encerra ao fechar
-npm run desktop  # o app desktop (Electron), como fica depois de instalado
+npm install         # instala tudo (e baixa os dados do OCR)
+npm start           # servidor em http://127.0.0.1:3020 e abre o navegador
+npm run desktop     # o app desktop, como fica depois de instalado
 npm run instalador  # gera dist/XdPDF-Instalador-<versão>.exe
-npm test         # testa todas as ferramentas de ponta a ponta
-npm run icones   # regenera os ícones a partir de public/icones/xdpdf.svg
-npm run ocr      # baixa de novo os dados do OCR
+npm test            # testa todas as ferramentas de ponta a ponta
+npm run icones      # regenera os ícones a partir de public/icones/xdpdf.svg
 ```
 
-Variáveis: `PORT` (padrão `3020`), `HOST` (padrão `127.0.0.1`), `ABRIR=0` para
-não abrir janela, `XDPDF_DADOS` para mudar a pasta de dados.
+Sem instalar nada além do Node.js, o **`XdPDF.bat`** prepara tudo e cria um
+atalho que abre o app numa janela própria do Edge.
+
+Variáveis: `PORT` (padrão `3020`), `HOST` (padrão `127.0.0.1`; `0.0.0.0` libera
+a rede inteira sem código, para servidores internos), `ABRIR=0` para não abrir
+janela e `XDPDF_DADOS` para mudar a pasta de dados.
 
 ```
-electron/main.js        o app desktop: sobe o servidor e abre a janela
+electron/main.js   app desktop: sobe o servidor e abre a janela
 src/
-  server.js             servidor, janela do app e encerramento automático
-  rotas/api.js          API (arquivos, ferramentas, tarefas, resultados)
-  nucleo/               armazenamento, tarefas, eventos em tempo real, PDF
-  motores/              Office, LibreOffice, imagens, pdf.js, OCR, compressão,
-                        texto/tabelas, Word/Excel/PowerPoint, navegador
-  ferramentas/          cada ferramenta, registrada no catálogo
-public/                 interface (Preact + htm, sem etapa de build)
-test/                   testes de ponta a ponta com PDFs gerados na hora
+  server.js        servidor
+  rotas/api.js     API: arquivos, ferramentas, tarefas, resultados
+  nucleo/          armazenamento, tarefas, eventos em tempo real, PDF, rede
+  motores/         Office, LibreOffice, imagens, pdf.js, OCR, compressão,
+                   texto e tabelas, Word/Excel/PowerPoint, navegador
+  ferramentas/     cada ferramenta, registrada no catálogo
+public/            interface (Preact + htm, sem etapa de build)
+test/              testes de ponta a ponta com PDFs gerados na hora
 ```
+
+Feito com [pdf-lib](https://github.com/cantoo-scribe/pdf-lib),
+[pdf.js](https://github.com/mozilla/pdf.js),
+[Tesseract.js](https://github.com/naptha/tesseract.js),
+[sharp](https://github.com/lovell/sharp),
+[Preact](https://preactjs.com) e [Electron](https://www.electronjs.org).
 
 Num servidor Linux, instale LibreOffice e Chromium para as conversões de Office
 e de sites; o resto funciona igual.
 
+## Licença
+
+[MIT](LICENSE) © Ihago Martins
+
 ---
 
+<div align="center">
+
 Desenvolvido por **Ihago Martins** — [@ihagomartins1](https://www.instagram.com/ihagomartins1/)
+
+</div>
