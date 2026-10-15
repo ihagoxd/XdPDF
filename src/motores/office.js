@@ -50,12 +50,23 @@ foreach ($p in 'Word','Excel','PowerPoint') {
 $r | ConvertTo-Json -Compress
 `;
 
+/** O programa está registrado para automação? (consulta ao registro: milissegundos) */
+function registrado(progId) {
+  return new Promise((resolve) => {
+    execFile('reg.exe', ['query', 'HKCR\\' + progId + '\\CLSID', '/ve'], { windowsHide: true, timeout: 8000 }, (err) => resolve(!err));
+  });
+}
+
 /** Quais programas existem: { word, excel, powerpoint, libre } */
 function detectar() {
   if (deteccao) return deteccao;
   deteccao = (async () => {
     const temLibre = Boolean(so.acharLibreOffice());
     if (!so.EH_WINDOWS) return { word: false, excel: false, powerpoint: false, libre: temLibre };
+    try {
+      const [word, excel, powerpoint] = await Promise.all(['Word.Application', 'Excel.Application', 'PowerPoint.Application'].map(registrado));
+      return { word, excel, powerpoint, libre: temLibre };
+    } catch (_) { /* tenta pelo PowerShell */ }
     try {
       const { stdout } = await execFileAsync(
         'powershell.exe',

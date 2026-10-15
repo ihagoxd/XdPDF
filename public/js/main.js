@@ -85,15 +85,12 @@ function AbasMovel({ rota, aoBuscar, aoInicio }) {
   </nav>`;
 }
 
-async function iniciar() {
+function iniciar() {
   conectarEventos();
-  try {
-    await carregarSistema();
-  } catch (_) {
-    avisar('Não consegui falar com o servidor do XdPDF.', 'erro');
-  }
+  // desenha na hora; o que esta máquina tem instalado chega logo depois
   render(html`<${App} />`, document.getElementById('app'));
   if (!location.hash) ir('/');
+  carregarSistema().catch(() => avisar('Não consegui falar com o servidor do XdPDF.', 'erro'));
 }
 
 iniciar();
