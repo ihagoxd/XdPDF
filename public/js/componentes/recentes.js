@@ -64,11 +64,13 @@ export function Recentes() {
           <strong title=${r.nome}>${r.nome}</strong>
           <small>${tamanho(r.tamanho)}${r.paginas ? ` · ${plural(r.paginas, 'página', 'páginas')}` : ''} · ${dataRelativa(r.criadoEm)}${r.ferramenta && POR_ID[r.ferramenta] ? ` · ${POR_ID[r.ferramenta].titulo}` : ''}</small>
         </div>
+        <div class="acoes-linha">
         ${/\.pdf$/i.test(r.nome) && html`<button class="btn-icone" title="Visualizar" onClick=${() => abrirVisualizador({ titulo: r.nome, url: `/api/resultados/${r.id}?ver=1` })}><${Icone} nome="olho" /></button>`}
         ${/\.pdf$/i.test(r.nome) && html`<button class="btn-icone" title="Usar em outra ferramenta" onClick=${() => continuar(r)}><${Icone} nome="seta" /></button>`}
         ${local && html`<button class="btn-icone" title="Salvar na pasta" onClick=${() => salvar(r)}><${Icone} nome="pasta" /></button>`}
         <a class="btn-icone" href=${`/api/resultados/${r.id}`} download title="Baixar"><${Icone} nome="baixar" /></a>
         <button class="btn-icone" title="Tirar da lista e apagar" onClick=${() => apagar([r.id])}><${Icone} nome="lixo" /></button>
+        </div>
       </div>`)}
     </div>`}
   </div>`;

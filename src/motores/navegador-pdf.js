@@ -56,8 +56,12 @@ function esperar(ms) {
 async function lerPortaDevtools(perfil, processo, limite = 20000) {
   const arquivo = path.join(perfil, 'DevToolsActivePort');
   const fim = Date.now() + limite;
+  let saiuEm = null;
   while (Date.now() < fim) {
-    if (processo.exitCode !== null) throw new Error('O navegador fechou ao iniciar.');
+    // O Edge às vezes repassa para outro processo e o primeiro sai logo;
+    // só desiste se, depois de sair, a porta não aparecer em alguns segundos.
+    if (processo.exitCode !== null && saiuEm === null) saiuEm = Date.now();
+    if (saiuEm !== null && Date.now() - saiuEm > 5000) throw new ErroUsuario('O navegador fechou ao iniciar. Feche outras janelas do Edge/Chrome em modo invisível e tente de novo.');
     try {
       const [porta, caminho] = (await fsp.readFile(arquivo, 'utf8')).split(/\r?\n/);
       if (porta && caminho) return `ws://127.0.0.1:${porta}${caminho}`;
@@ -206,7 +210,18 @@ async function paraPdf({ endereco = '', html = '', papel = 'a4', orientacao = 'r
       params.paperHeight = ph;
       params.landscape = orientacao === 'paisagem';
     }
-    const { data } = await cdp.enviar('Page.printToPDF', params, s);
+    let { data } = await cdp.enviar('Page.printToPDF', params, s);
+    if (papel === 'unica') {
+      // A altura medida na tela nem sempre é a da impressão: se sobrou
+      // página, aumenta o papel e gera de novo (até três vezes).
+      const { PDFDocument } = require('@cantoo/pdf-lib');
+      for (let tentativa = 0; tentativa < 3; tentativa += 1) {
+        const paginas = (await PDFDocument.load(Buffer.from(data, 'base64'), { ignoreEncryption: true, updateMetadata: false })).getPageCount();
+        if (paginas <= 1 || params.paperHeight >= 200) break;
+        params.paperHeight = Math.min(params.paperHeight * paginas + 0.5, 200);
+        ({ data } = await cdp.enviar('Page.printToPDF', params, s));
+      }
+    }
     await cdp.enviar('Browser.close').catch(() => {});
     return { bytes: Buffer.from(data, 'base64'), titulo };
   } finally {
