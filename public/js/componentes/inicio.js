@@ -73,6 +73,10 @@ export function Inicio({ categoria, aoCategoria }) {
     aoFavoritar=${alternarFavorita} motivo=${indisponivel(f, cap)} />`;
 
   const mostrandoTudo = !busca && !categoria;
+  const continuando = (() => {
+    try { return JSON.parse(sessionStorage.getItem('xdpdf-continuar') || '[]').length; } catch (_) { return 0; }
+  })();
+  const [, recarregar] = useState(0);
   const favs = favoritas.map((id) => POR_ID[id]).filter(Boolean);
 
   return html`<div class="pagina">
@@ -92,6 +96,12 @@ export function Inicio({ categoria, aoCategoria }) {
           aria-label="Procurar ferramenta" />
       </label>
     </div>
+
+    ${continuando > 0 && html`<div class="faixa-continuar" role="status">
+      <${Icone} nome="seta" tam=${18} />
+      <span><strong>Escolha a próxima ferramenta.</strong> ${continuando === 1 ? 'O arquivo já vai estar lá' : `Os ${continuando} arquivos já vão estar lá`}.</span>
+      <button class="btn btn-p" onClick=${() => { sessionStorage.removeItem('xdpdf-continuar'); recarregar((n) => n + 1); }}>Cancelar</button>
+    </div>`}
 
     <div class="filtros" role="tablist">
       <button class=${cx('filtro', !categoria && 'ativo')} onClick=${() => aoCategoria(null)}>Todas</button>

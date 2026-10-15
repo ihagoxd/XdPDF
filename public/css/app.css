@@ -457,6 +457,18 @@ kbd {
 }
 .ic-acao.g { width: 52px; height: 52px; border-radius: 14px; }
 
+.faixa-continuar {
+  display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  padding: 12px 14px;
+  margin-bottom: 18px;
+  border-radius: 14px;
+  background: var(--info-suave);
+  border: 1px solid color-mix(in srgb, var(--info) 30%, transparent);
+  font-size: 13.5px;
+}
+.faixa-continuar strong { font-weight: 650; }
+.faixa-continuar .btn { margin-left: auto; }
+
 .recentes-faixa {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -789,6 +801,7 @@ kbd {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(var(--tam-pagina, 148px), 1fr));
   gap: 16px 14px;
+  align-items: end;
   user-select: none;
 }
 
