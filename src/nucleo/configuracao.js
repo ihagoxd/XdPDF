@@ -12,6 +12,8 @@ const PADRAO = {
   pastaSaida: path.join(config.pastaDownloadsPadrao(), 'XdPDF'),
   abrirPastaAoSalvar: true,
   idiomaOcr: 'por',
+  acessoRede: false,
+  codigoRede: null,
 };
 
 let atual = null;
@@ -31,6 +33,8 @@ function salvar(parcial) {
   if (typeof parcial.pastaSaida === 'string' && parcial.pastaSaida.trim()) novo.pastaSaida = parcial.pastaSaida.trim();
   if (typeof parcial.abrirPastaAoSalvar === 'boolean') novo.abrirPastaAoSalvar = parcial.abrirPastaAoSalvar;
   if (['por', 'eng', 'por+eng'].includes(parcial.idiomaOcr)) novo.idiomaOcr = parcial.idiomaOcr;
+  if (typeof parcial.acessoRede === 'boolean') novo.acessoRede = parcial.acessoRede;
+  if (typeof parcial.codigoRede === 'string' && /^\d{6}$/.test(parcial.codigoRede)) novo.codigoRede = parcial.codigoRede;
   atual = novo;
   fs.writeFileSync(config.ARQUIVO_CONFIG, JSON.stringify(novo, null, 2), 'utf8');
   return novo;

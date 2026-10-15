@@ -1,4 +1,4 @@
-import { html, useState, cx } from '../lib.js';
+import { html, useState, useEffect, cx } from '../lib.js';
 import { Icone } from '../icones.js';
 import { api, avisar, useLoja, carregarSistema } from '../loja.js';
 import { Credito } from './base.js';
@@ -11,12 +11,59 @@ function Capacidade({ ok, titulo, detalhe }) {
   </div>`;
 }
 
+function UsarNoCelular() {
+  const [rede, setRede] = useState(null);
+  const [mudando, setMudando] = useState(false);
+  useEffect(() => { api.get('/rede').then((d) => setRede(d.rede)).catch(() => {}); }, []);
+  if (!rede) return null;
+
+  const alternar = async () => {
+    setMudando(true);
+    try {
+      const d = await api.put('/rede', { ativo: !rede.ativo });
+      setRede(d.rede);
+      if (d.rede.erro) avisar(d.rede.erro, 'erro');
+    } catch (e) { avisar(e.message, 'erro'); } finally { setMudando(false); }
+  };
+  const trocarCodigo = async () => {
+    const d = await api.post('/rede/codigo');
+    setRede(d.rede);
+    avisar('Código trocado. Os celulares que estavam conectados vão pedir o código novo.', 'ok');
+  };
+
+  return html`<div class="painel config-cartao">
+    <h3>Usar no celular</h3>
+    <label class=${cx('alternar', rede.ativo && 'ligado')} onClick=${(e) => { e.preventDefault(); if (!mudando) alternar(); }}>
+      <span class="trilho"></span>
+      <span class="texto"><strong>Permitir acesso pelo celular</strong><small>O celular precisa estar na mesma rede Wi-Fi deste computador.</small></span>
+    </label>
+    ${rede.ativo && rede.qr && html`<div class="celular-acesso">
+      <div class="qr" dangerouslySetInnerHTML=${{ __html: rede.qr }} aria-label="QR Code para abrir o XdPDF no celular"></div>
+      <div class="celular-texto">
+        <strong>Aponte a câmera do celular para o código</strong>
+        <span>Ou digite no navegador do celular:</span>
+        <code>${rede.url.replace(/\?acesso=.*/, '')}</code>
+        <span>Código de acesso: <b class="codigo">${rede.codigo}</b></span>
+        <button class="btn btn-p" onClick=${trocarCodigo}><${Icone} nome="recarregar" tam=${15} /> Gerar outro código</button>
+      </div>
+    </div>`}
+    ${rede.ativo && !rede.enderecos.length && html`<div class="alerta aviso">Este computador não está conectado a nenhuma rede.</div>`}
+    ${rede.ativo && html`<p class="ajuda" style="font-size:12px;color:var(--texto-3)">Na primeira vez, o Windows pode perguntar se o Node.js pode usar a rede: marque <b>Redes privadas</b> e permita. Só quem tiver o código consegue entrar.</p>`}
+  </div>`;
+}
+
 export function Configuracoes() {
   const { sistema } = useLoja();
   const cfg = (sistema && sistema.config) || {};
   const cap = (sistema && sistema.capacidades) || {};
   const [pasta, setPasta] = useState(cfg.pastaSaida || '');
   const [abrir, setAbrir] = useState(cfg.abrirPastaAoSalvar !== false);
+  // a configuração chega depois da tela: preenche quando chegar
+  useEffect(() => {
+    if (!sistema) return;
+    setPasta((atual) => atual || sistema.config.pastaSaida || '');
+    setAbrir(sistema.config.abrirPastaAoSalvar !== false);
+  }, [sistema]);
 
   const salvar = async () => {
     try {
@@ -49,6 +96,8 @@ export function Configuracoes() {
         </label>
         <div><button class="btn btn-primario" onClick=${salvar}><${Icone} nome="check" tam=${16} /> Salvar</button></div>
       </div>
+
+      ${sistema && sistema.local && html`<${UsarNoCelular} />`}
 
       <div class="painel config-cartao">
         <h3>O que está instalado</h3>

@@ -9,6 +9,8 @@ const config = require('./config');
 const armazem = require('./nucleo/armazem');
 const eventos = require('./nucleo/eventos');
 const janela = require('./nucleo/janela');
+const rede = require('./nucleo/rede');
+const configuracao = require('./nucleo/configuracao');
 require('./ferramentas/todas'); // registra as ferramentas no catálogo
 const api = require('./rotas/api');
 
@@ -29,6 +31,8 @@ if (config.MODO_APP && !process.stdout.isTTY) {
 const app = express();
 app.disable('x-powered-by');
 
+// Quem chega pela porta do celular precisa do código de acesso.
+app.use(rede.portaria);
 app.use(express.json({ limit: '50mb' }));
 
 // Nada de cache nos arquivos do próprio app: uma atualização aparece na hora.
@@ -102,6 +106,7 @@ async function iniciar() {
     console.log('  Ctrl+C para encerrar.');
     console.log('');
 
+    if (configuracao.ler().acessoRede) await rede.ligar(app);
     if (config.ABRIR_JANELA) await janela.abrir(url, { modoApp: config.MODO_APP });
     if (config.MODO_APP) janela.encerrarQuandoFechar(eventos);
   });

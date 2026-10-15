@@ -35,6 +35,12 @@ function ehLocal(req) {
    SISTEMA E EVENTOS
    ============================================================ */
 
+/** Configuração sem o código de acesso do celular. */
+function configPublica() {
+  const { codigoRede, ...resto } = configuracao.ler(); // eslint-disable-line no-unused-vars
+  return resto;
+}
+
 router.get('/sistema', seguro(async (req, res) => {
   res.json({
     ok: true,
@@ -42,7 +48,7 @@ router.get('/sistema', seguro(async (req, res) => {
     modoApp: config.MODO_APP,
     local: ehLocal(req),
     capacidades: await sistema.capacidades(),
-    config: configuracao.ler(),
+    config: configPublica(),
   });
 }));
 
@@ -51,10 +57,15 @@ router.get('/eventos', (req, res) => eventos.conectar(req, res));
 // HTML colado no "Site para PDF": o navegador invisível busca aqui, uma vez só.
 router.get('/render/:token', (req, res) => require('../motores/navegador-pdf').servirHtmlColado(req, res));
 
-router.get('/config', (req, res) => res.json({ ok: true, config: configuracao.ler() }));
+router.get('/config', (req, res) => res.json({ ok: true, config: configPublica() }));
 
 router.put('/config', (req, res) => {
-  res.json({ ok: true, config: configuracao.salvar(req.body || {}) });
+  if (!ehLocal(req)) return res.status(403).json({ ok: false, erro: 'As configurações só mudam no próprio computador.' });
+  const corpo = { ...(req.body || {}) };
+  delete corpo.acessoRede;
+  delete corpo.codigoRede;
+  configuracao.salvar(corpo);
+  res.json({ ok: true, config: configPublica() });
 });
 
 /* ============================================================
@@ -222,6 +233,29 @@ router.post('/resultados/:id/abrir', seguro(async (req, res) => {
   await so.abrirArquivo(r.caminho);
   res.json({ ok: true });
 }));
+
+/* ---------------- usar no celular ---------------- */
+
+router.get('/rede', (req, res) => {
+  if (!ehLocal(req)) return res.status(403).json({ ok: false, erro: 'Só no próprio computador.' });
+  res.json({ ok: true, rede: require('../nucleo/rede').estado() });
+});
+
+router.put('/rede', seguro(async (req, res) => {
+  if (!ehLocal(req)) return res.status(403).json({ ok: false, erro: 'Só no próprio computador.' });
+  const rede = require('../nucleo/rede');
+  const ativo = Boolean((req.body || {}).ativo);
+  configuracao.salvar({ acessoRede: ativo });
+  const estado = ativo ? await rede.ligar(req.app) : await rede.desligar();
+  res.json({ ok: true, rede: estado });
+}));
+
+router.post('/rede/codigo', (req, res) => {
+  if (!ehLocal(req)) return res.status(403).json({ ok: false, erro: 'Só no próprio computador.' });
+  const rede = require('../nucleo/rede');
+  rede.novoCodigo();
+  res.json({ ok: true, rede: rede.estado() });
+});
 
 // Crédito: na janela do app, abre o Instagram no navegador de sempre (onde a pessoa está logada).
 router.post('/abrir-instagram', (req, res) => {
