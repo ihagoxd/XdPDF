@@ -76,20 +76,25 @@ baixar e enviar de novo.
   7 dias e aparecem em **Arquivos recentes**.
 - Por padrão o XdPDF só aceita conexões do próprio computador.
 
-## Usar pelo celular ou por outros computadores
+## Usar no celular
 
-Inicie com a rede liberada:
+Em **Configurações → Usar no celular**, ligue "Permitir acesso pelo celular".
+Aparece um **QR Code**: aponte a câmera do celular (mesma rede Wi-Fi) e o
+XdPDF abre já liberado. Também dá para digitar o endereço e o código de 6
+números que aparecem ali.
 
-```bat
-set HOST=0.0.0.0
-npm start
-```
+- Só entra quem tem o código; depois de várias tentativas erradas o aparelho
+  fica bloqueado por 15 minutos. "Gerar outro código" desconecta todo mundo.
+- Pelo celular dá para usar todas as ferramentas e baixar os resultados; mudar
+  configurações e abrir pastas do computador, não.
+- Na primeira vez, o Windows pode perguntar se o Node.js pode usar a rede:
+  escolha **Redes privadas**.
+- A interface foi feita para o celular: ferramentas em lista, botão de ação
+  fixo embaixo, arrastar segurando o dedo e "Tirar foto do documento" no
+  Imagem para PDF.
 
-e abra `http://IP-DESTE-COMPUTADOR:3020` no celular (mesma rede Wi-Fi). A
-interface foi feita para funcionar no celular: lista de ferramentas, botão de
-ação fixo embaixo, arrastar segurando o dedo, "Tirar foto do documento" no
-Imagem para PDF. Só libere a rede em redes de confiança: qualquer um nela
-consegue usar o XdPDF.
+Para servidores (Linux, rede interna confiável), dá para abrir a porta
+principal para todos com `HOST=0.0.0.0`; nesse caso não há código de acesso.
 
 ## Atalhos
 
